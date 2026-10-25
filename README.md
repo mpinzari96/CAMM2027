@@ -20,11 +20,11 @@ Official registration and information website for the **CAMM Conference 2027** (
 
 ## Tech Stack
 
-- **Framework**: Next.js 16 (App Router)
+- **Framework**: Next.js 16 (App Router, Static Export)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS 4
 - **Icons**: Lucide React
-- **Deployment**: Vercel-ready
+- **Hosting**: Netlify
 
 ## Getting Started
 
@@ -35,12 +35,22 @@ npm install
 # Run development server
 npm run dev
 
-# Build for production
+# Build for production (static export to out/)
 npm run build
 
-# Start production server
-npm start
+# Preview production build locally
+npx serve out
 ```
+
+## Deployment
+
+This project is configured for **Netlify** deployment:
+
+- Build command: `npm run build`
+- Publish directory: `out`
+- Node version: 20
+
+The `netlify.toml` file contains the deployment configuration. Push to main or open a PR to trigger a deploy preview.
 
 ## Project Structure
 
