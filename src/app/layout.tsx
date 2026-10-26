@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "CAMM Conference 2027 | Christian American Media Ministry",
   description:
-    "Join us January 22-23, 2027 at Bible Baptist Church in Sacramento, CA for the CAMM Conference. Equipping creators and advancing the mission through media ministry. Training in Video, Audio, Projection & Photography.",
+    "Join us January 22-23, 2027 at Bible Baptist Church in Sacramento, CA for the CAMM Conference. Equipping creators and advancing the mission through media ministry. Training in Video Production, Audio Engineering, Projection & Stage, and Photography.",
   keywords: [
     "CAMM Conference",
     "Christian media",
@@ -27,21 +27,33 @@ export const metadata: Metadata = {
     "Sacramento conference",
     "Bible Baptist Church",
     "Christian American Media Ministry",
+    "ProPresenter training",
+    "live streaming church",
+    "worship media",
   ],
   authors: [{ name: "CAMM Conference" }],
   openGraph: {
     title: "CAMM Conference 2027 | Christian American Media Ministry",
     description:
-      "January 22-23, 2027 - Bible Baptist Church, Sacramento, CA. Equipping creators and advancing the mission through media ministry.",
+      "January 22-23, 2027 - Bible Baptist Church, Sacramento, CA. Equipping creators and advancing the mission through media ministry. 4 Tracks: Video, Audio, Projection & Photography.",
     type: "website",
     locale: "en_US",
     siteName: "CAMM Conference 2027",
+    images: [
+      {
+        url: "/camm-2027-banner.png",
+        width: 3840,
+        height: 2160,
+        alt: "CAMM Conference 2027 - Christian American Media Ministry",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "CAMM Conference 2027",
     description:
-      "January 22-23, 2027 - Equipping creators and advancing the mission through media ministry.",
+      "January 22-23, 2027 - Equipping creators and advancing the mission through media ministry at Bible Baptist Church, Sacramento, CA.",
+    images: ["/camm-2027-banner.png"],
   },
   robots: {
     index: true,
@@ -56,7 +68,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="min-h-screen bg-[#07101E] text-white antialiased">
+      <body className="min-h-screen bg-[#040811] text-[#F4F8FC] antialiased">
         {children}
       </body>
     </html>

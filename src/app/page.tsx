@@ -11,7 +11,6 @@ import {
   Users,
   GraduationCap,
   TrendingUp,
-  Calendar,
   MapPin,
   Play,
   ArrowRight,
@@ -24,6 +23,8 @@ import {
   CheckCircle,
   ExternalLink,
   AlertCircle,
+  Volume2,
+  Maximize2,
 } from "lucide-react";
 import { conferenceData } from "@/lib/conference-data";
 
@@ -37,14 +38,30 @@ const iconMap: Record<string, React.ElementType> = {
   TrendingUp,
 };
 
+function getFirstBreakoutIndex(events: typeof conferenceData.schedule.day1.events): number | null {
+  const index = events.findIndex((e) => e.isBreakout);
+  return index >= 0 ? index : null;
+}
+
 export default function CAMMConference2027() {
   const [activeDay, setActiveDay] = React.useState<1 | 2>(1);
-  const [activeTrack, setActiveTrack] = React.useState<string>("all");
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [expandedFaq, setExpandedFaq] = React.useState<number | null>(null);
   const [iframeBlocked, setIframeBlocked] = React.useState(false);
   const [iframeLoading, setIframeLoading] = React.useState(true);
   const iframeRef = React.useRef<HTMLIFrameElement>(null);
+
+  const currentSchedule = activeDay === 1 ? conferenceData.schedule.day1 : conferenceData.schedule.day2;
+  
+  const [selectedBreakout, setSelectedBreakout] = React.useState<number | null>(() => 
+    getFirstBreakoutIndex(conferenceData.schedule.day1.events)
+  );
+
+  const handleDayChange = (day: 1 | 2) => {
+    setActiveDay(day);
+    const newSchedule = day === 1 ? conferenceData.schedule.day1 : conferenceData.schedule.day2;
+    setSelectedBreakout(getFirstBreakoutIndex(newSchedule.events));
+  };
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -53,7 +70,6 @@ export default function CAMMConference2027() {
         setIframeLoading(false);
       }
     }, 5000);
-
     return () => clearTimeout(timer);
   }, [iframeLoading]);
 
@@ -62,35 +78,22 @@ export default function CAMMConference2027() {
     setIframeBlocked(false);
   };
 
-  const currentSchedule =
-    activeDay === 1
-      ? conferenceData.schedule.day1
-      : conferenceData.schedule.day2;
-
-  const filteredEvents = currentSchedule.events.filter((event) => {
-    if (activeTrack === "all") return true;
-    if (event.type !== "lesson") return true;
-    return event.tracks && activeTrack in event.tracks;
-  });
+  const selectedEvent = selectedBreakout !== null ? currentSchedule.events[selectedBreakout] : null;
 
   return (
-    <div className="min-h-screen bg-[#07101E]">
+    <div className="min-h-screen bg-[#040811]">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 glassmorphism border-b border-border">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="#home" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg overflow-hidden">
-              <Image
-                src={conferenceData.logo}
-                alt="CAMM Logo"
-                width={40}
-                height={40}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <span className="hidden sm:block font-semibold text-white">
-              CAMM <span className="text-accent">CONFERENCE</span>
-            </span>
+      <header className="fixed top-0 left-0 right-0 z-50 glassmorphism hairline-b">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 h-[76px] flex items-center justify-between">
+          <Link href="#home" className="flex items-center gap-3.5">
+            <Image
+              src={conferenceData.logo}
+              alt="CAMM Conference 2027"
+              width={140}
+              height={40}
+              className="h-10 w-auto object-contain"
+              priority
+            />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-8">
@@ -98,7 +101,7 @@ export default function CAMMConference2027() {
               <a
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-foreground-muted hover:text-accent transition-colors uppercase tracking-wide"
+                className="text-xs font-semibold tracking-[0.16em] uppercase text-[#A9BCD0] hover:text-white transition-colors"
               >
                 {item.label}
               </a>
@@ -110,13 +113,13 @@ export default function CAMMConference2027() {
               href={conferenceData.registration.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:flex items-center gap-2 px-6 py-2.5 bg-accent hover:bg-accent-hover text-[#07101E] font-semibold rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-accent/30"
+              className="hidden sm:flex btn-outline-accent"
             >
-              REGISTER NOW
+              Register Now
             </a>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-white hover:text-accent transition-colors"
+              className="lg:hidden p-2 text-white hover:text-[#8ECAE6] transition-colors"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -126,14 +129,14 @@ export default function CAMMConference2027() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden glassmorphism border-t border-border">
-            <nav className="container mx-auto px-4 py-6 space-y-4">
+          <div className="lg:hidden glassmorphism hairline-t">
+            <nav className="max-w-[1280px] mx-auto px-6 py-6 space-y-4">
               {conferenceData.navigation.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block py-3 text-foreground-muted hover:text-accent transition-colors uppercase tracking-wide border-b border-border/50"
+                  className="block py-3 text-[#A9BCD0] hover:text-[#8ECAE6] transition-colors uppercase tracking-[0.12em] text-sm font-semibold hairline-b"
                 >
                   {item.label}
                 </a>
@@ -142,149 +145,314 @@ export default function CAMMConference2027() {
                 href={conferenceData.registration.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full py-3 mt-4 bg-accent hover:bg-accent-hover text-[#07101E] font-semibold rounded-full transition-colors"
+                className="flex items-center justify-center w-full py-3 mt-4 btn-solid-accent"
               >
-                REGISTER NOW
+                Register Now
               </a>
             </nav>
           </div>
         )}
       </header>
 
-      {/* Hero Section */}
+      {/* Hero Section with Cinema Video Dock */}
       <section
         id="home"
-        className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+        className="relative pt-[76px]"
+        style={{
+          background: `linear-gradient(180deg, rgba(4,8,17,0.42) 0%, rgba(4,8,17,0.78) 70%, #040811 100%), url('/mockup-assets/hero-bg.jpg') center/cover no-repeat`,
+        }}
       >
-        {/* Background with gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#07101E] via-[#0B1526] to-[#07101E]">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiM1RUIwRjgiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-50"></div>
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
-        </div>
+        <div className="max-w-[1120px] mx-auto px-6 lg:px-10 pt-16 pb-11 text-center">
+          {/* Eyebrow */}
+          <div className="text-[13px] font-bold tracking-[0.24em] text-[#8ECAE6] uppercase mb-3.5">
+            {conferenceData.fullName} • {conferenceData.dates.shortDisplay}
+          </div>
 
-        {/* Decorative stage lighting effect */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[600px] bg-gradient-to-b from-accent/10 via-transparent to-transparent blur-2xl"></div>
+          {/* Headline */}
+          <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-light tracking-[0.08em] uppercase text-white mb-3.5">
+            Welcome to the <strong className="font-extrabold">CAMM Conference</strong>
+          </h1>
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-5xl mx-auto text-center">
-            <div className="mb-6">
-              <span className="inline-block px-4 py-2 text-sm font-medium text-accent uppercase tracking-widest">
-                Welcome to the
-              </span>
+          {/* Subtitle */}
+          <p className="text-lg lg:text-[19px] text-[#C7D7E8] mb-10 max-w-2xl mx-auto">
+            {conferenceData.tagline}
+          </p>
+
+          {/* Cinema Video Dock */}
+          <div className="cinema-dock max-w-[860px] mx-auto p-5 flex flex-col md:flex-row items-center gap-6">
+            {/* Thumbnail */}
+            <div
+              className="w-full md:w-[190px] h-[106px] rounded-[10px] border border-[rgba(142,202,230,0.45)] flex-shrink-0 flex items-center justify-center bg-cover bg-center"
+              style={{ backgroundImage: `url('/mockup-assets/camera-monitor.jpg')` }}
+            >
+              <button className="play-circle">
+                <Play className="w-[18px] h-[18px] text-white fill-white ml-0.5" />
+              </button>
             </div>
 
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6">
-              <span className="block text-white">CAMM</span>
-              <span className="block text-accent">CONFERENCE</span>
-            </h1>
-
-            <p className="text-xl md:text-2xl text-foreground-muted mb-4 max-w-3xl mx-auto">
-              {conferenceData.tagline}
-            </p>
-            <p className="text-lg text-foreground-muted/70 mb-8 max-w-2xl mx-auto">
-              {conferenceData.fullName}
-            </p>
-
-            {/* Event Badge */}
-            <div className="flex flex-wrap items-center justify-center gap-4 mb-10">
-              <div className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-full">
-                <Calendar className="w-4 h-4 text-accent" />
-                <span className="text-sm font-medium text-white">
-                  {conferenceData.dates.shortDisplay}
-                </span>
+            {/* Video Info */}
+            <div className="flex-1 text-left">
+              <div className="text-xs font-extrabold tracking-[0.16em] text-[#8ECAE6] uppercase mb-1.5">
+                Watch Welcome Video • 2:18
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-full">
-                <MapPin className="w-4 h-4 text-accent" />
-                <span className="text-sm font-medium text-white">
-                  {conferenceData.venue.fullAddress}
-                </span>
+              <div className="text-lg lg:text-xl font-bold text-white mb-1.5">
+                Inside CAMM 2027: 4 Tracks, Live Stage Labs & Fellowship
+              </div>
+              <div className="text-sm text-[#94A8BE]">
+                Click to play full-screen with audio or scrub the preview timeline below.
               </div>
             </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href="#registration"
-                className="flex items-center gap-2 px-8 py-4 bg-accent hover:bg-accent-hover text-[#07101E] font-bold rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-accent/30 text-lg"
-              >
-                Register Now
-                <ArrowRight className="w-5 h-5" />
-              </a>
-              <a
-                href="#schedule"
-                className="flex items-center gap-2 px-8 py-4 border-2 border-accent/50 hover:border-accent text-white font-semibold rounded-full transition-all duration-300 hover:bg-accent/10"
-              >
-                <Play className="w-5 h-5" />
-                View Schedule
-              </a>
-            </div>
+            {/* Play Button */}
+            <button className="btn-solid-accent flex-shrink-0 whitespace-nowrap">
+              Play Intro <Play className="w-4 h-4 fill-current" />
+            </button>
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <ChevronDown className="w-6 h-6 text-accent/50" />
+        {/* Scrubber Bar */}
+        <div className="scrubber-bar px-6 lg:px-10 py-3.5 flex items-center gap-5">
+          <button className="text-[#8ECAE6] hover:text-white transition-colors">
+            <Play className="w-4 h-4 fill-current" />
+          </button>
+          <div className="scrubber-track">
+            <div className="scrubber-fill" style={{ width: "0%" }}></div>
+            <div className="scrubber-knob" style={{ left: "0%" }}></div>
+          </div>
+          <div className="flex items-center gap-4 text-xs font-semibold tracking-[0.08em] text-[#B8CBE0] tabular-nums">
+            <span>0:00 / 2:18</span>
+            <button className="text-[#8ECAE6] hover:text-white transition-colors">
+              <Volume2 className="w-4 h-4" />
+            </button>
+            <span className="hd-badge">HD</span>
+            <button className="flex items-center gap-1 text-[#B8CBE0] hover:text-white transition-colors">
+              <Maximize2 className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">FULLSCREEN</span>
+            </button>
+          </div>
         </div>
       </section>
 
-      {/* 4-Column Track & Feature Strip */}
-      <section id="tracks" className="py-20 bg-[#0B1526] border-y border-border">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-            {conferenceData.tracks.map((track) => {
-              const Icon = iconMap[track.icon] || Video;
-              return (
-                <div
-                  key={track.id}
-                  className="text-center group cursor-pointer"
-                >
-                  <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-xl bg-card border border-border group-hover:border-accent/50 group-hover:shadow-lg group-hover:shadow-accent/10 transition-all duration-300">
-                    <Icon className="w-8 h-8 text-accent" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-white mb-2 uppercase tracking-wide">
-                    {track.name}
-                  </h3>
-                  <p className="text-sm text-foreground-muted">
-                    {track.description}
-                  </p>
+      {/* 4-Column Track Strip */}
+      <section id="tracks" className="bg-[#050A14] hairline-b">
+        <div className="grid grid-cols-2 lg:grid-cols-4">
+          {conferenceData.tracks.map((track, index) => {
+            const Icon = iconMap[track.icon] || Video;
+            return (
+              <div
+                key={track.id}
+                className={`p-7 flex items-start gap-4.5 ${index < 3 ? "hairline-r" : ""}`}
+              >
+                <div className="track-icon-box">
+                  <Icon className="w-5 h-5" />
                 </div>
-              );
-            })}
+                <div>
+                  <div className="text-sm font-extrabold tracking-[0.14em] uppercase text-white mb-1.5">
+                    {track.name}
+                  </div>
+                  <div className="text-sm text-[#94A8BE] leading-[1.45]">
+                    {track.description}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Master-Detail Schedule & Breakout Track Matrix */}
+      <section id="schedule" className="hairline-b">
+        <div className="max-w-[1280px] mx-auto grid lg:grid-cols-2 hairline-l hairline-r">
+          {/* Left Column - Schedule Timeline */}
+          <div className="p-10 lg:p-12 hairline-r">
+            <div className="text-xs font-bold tracking-[0.2em] text-[#8ECAE6] uppercase mb-2">
+              Left-Aligned Tabular Timeline
+            </div>
+            <h2 className="text-[28px] font-extrabold tracking-[0.06em] uppercase text-white mb-6">
+              Conference Schedule
+            </h2>
+
+            {/* Day Switcher */}
+            <div className="flex gap-2.5 mb-7">
+              <button
+                onClick={() => handleDayChange(1)}
+                className={`px-5 py-2.5 rounded-full text-[13px] font-extrabold tracking-[0.12em] uppercase transition-all ${
+                  activeDay === 1
+                    ? "bg-[#8ECAE6] text-[#040811]"
+                    : "border border-[rgba(255,255,255,0.14)] text-[#9FB2C7] hover:border-[#8ECAE6]/50"
+                }`}
+              >
+                Day 1 • {conferenceData.schedule.day1.shortDate}
+              </button>
+              <button
+                onClick={() => handleDayChange(2)}
+                className={`px-5 py-2.5 rounded-full text-[13px] font-bold tracking-[0.12em] uppercase transition-all ${
+                  activeDay === 2
+                    ? "bg-[#8ECAE6] text-[#040811]"
+                    : "border border-[rgba(255,255,255,0.14)] text-[#9FB2C7] hover:border-[#8ECAE6]/50"
+                }`}
+              >
+                Day 2 • {conferenceData.schedule.day2.shortDate}
+              </button>
+            </div>
+
+            {/* Timeline */}
+            <div className="relative pl-7 timeline-spine ml-1.5">
+              {currentSchedule.events.map((event, index) => {
+                const isSelected = selectedBreakout === index;
+                const isBreakout = event.isBreakout;
+
+                return (
+                  <div
+                    key={index}
+                    className={`relative grid grid-cols-[118px_1fr] gap-4 py-4.5 ${
+                      isSelected ? "schedule-row-selected px-3.5 my-2" : ""
+                    } ${!isSelected && index < currentSchedule.events.length - 1 ? "hairline-b" : ""}`}
+                  >
+                    {/* Timeline Node */}
+                    <div
+                      className={`absolute -left-[5.5px] top-6 w-2.5 h-2.5 rounded-full ${
+                        isBreakout
+                          ? "bg-[#8ECAE6] shadow-[0_0_12px_rgba(142,202,230,0.6)]"
+                          : "bg-[#4A5568]"
+                      }`}
+                    ></div>
+
+                    {/* Time */}
+                    <div
+                      className={`text-lg font-bold tabular-nums ${
+                        isSelected ? "text-[#8ECAE6]" : "text-[#DCEBFA]"
+                      }`}
+                    >
+                      {event.time}
+                    </div>
+
+                    {/* Content */}
+                    <div>
+                      {isBreakout ? (
+                        <button
+                          onClick={() => setSelectedBreakout(index)}
+                          className="text-left w-full"
+                        >
+                          <div
+                            className={`text-xl font-bold ${
+                              isSelected ? "text-white" : "text-white"
+                            }`}
+                          >
+                            {event.title}
+                            {isSelected && (
+                              <span className="ml-2 text-[#8ECAE6]">(Selected →)</span>
+                            )}
+                          </div>
+                          <div
+                            className={`text-[15px] mt-1 ${
+                              isSelected ? "text-[#B8D8EE]" : "text-[#8FA5BC]"
+                            }`}
+                          >
+                            {event.subtitle}
+                          </div>
+                        </button>
+                      ) : (
+                        <>
+                          <div className="text-xl font-bold text-white">{event.title}</div>
+                          <div className="text-[15px] text-[#8FA5BC] mt-1">{event.subtitle}</div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Right Column - Breakout Track Matrix & Registration */}
+          <div className="p-10 lg:p-12 bg-[#050A14]">
+            {/* Breakout Track Matrix Inspector */}
+            {selectedEvent && selectedEvent.isBreakout && selectedEvent.tracks && (
+              <div className="matrix-card mb-6">
+                <div className="flex flex-wrap justify-between items-center gap-2 mb-4">
+                  <div className="text-xs font-extrabold tracking-[0.16em] text-[#8ECAE6] uppercase">
+                    {selectedEvent.time} Breakout Inspector • 4 Tracks
+                  </div>
+                  <span className="text-xs text-[#94A8BE]">Click any time slot on left</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {Object.entries(selectedEvent.tracks).map(([trackId, trackData]) => {
+                    const track = conferenceData.tracks.find((t) => t.id === trackId);
+                    return (
+                      <div key={trackId} className="matrix-cell">
+                        <div className="text-[11px] font-extrabold tracking-[0.14em] text-[#8ECAE6] uppercase mb-1">
+                          {track?.shortName || trackId} Track
+                        </div>
+                        <div className="text-base font-bold text-white mb-1">
+                          {typeof trackData === "object" ? trackData.title : trackData}
+                        </div>
+                        <div className="text-[13px] text-[#8FA5BC]">
+                          {typeof trackData === "object" ? trackData.location : ""}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Registration Card with Crowd Background */}
+            <div
+              className="rounded-[14px] border border-[rgba(255,255,255,0.09)] p-8 bg-cover bg-top"
+              style={{
+                background: `linear-gradient(180deg, rgba(4,8,17,0.4) 0%, #040811 95%), url('/mockup-assets/crowd-top.jpg') top/cover no-repeat`,
+              }}
+            >
+              <div className="text-[11px] font-bold tracking-[0.18em] text-[#8ECAE6] uppercase mb-1.5">
+                Get Involved
+              </div>
+              <h3 className="text-[30px] font-extrabold text-white mb-2.5">
+                Registration is Open.
+              </h3>
+              <p className="text-[15px] text-[#B8CBE0] leading-relaxed mb-5">
+                {conferenceData.dates.shortDisplay} • {conferenceData.venue.name},{" "}
+                {conferenceData.venue.city}, {conferenceData.venue.state} • Subsplash Instant
+                Registration
+              </p>
+              <a
+                href="#registration"
+                className="btn-solid-accent inline-flex"
+              >
+                Register Now <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Why Attend Section */}
-      <section id="about" className="py-20 bg-[#07101E]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 text-sm font-medium text-accent uppercase tracking-widest mb-4">
+      <section id="about" className="py-20 bg-[#040811]">
+        <div className="max-w-[1120px] mx-auto px-6 lg:px-10">
+          <div className="text-center mb-14">
+            <div className="text-xs font-bold tracking-[0.2em] text-[#8ECAE6] uppercase mb-3">
               Why Attend
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            </div>
+            <h2 className="text-3xl lg:text-4xl font-extrabold text-white mb-4">
               Why Attend CAMM?
             </h2>
-            <p className="text-xl text-foreground-muted max-w-3xl mx-auto">
-              Two days of inspiration, fellowship, and practical training for
-              advancing God&apos;s kingdom through media ministry.
+            <p className="text-lg text-[#94A8BE] max-w-2xl mx-auto">
+              Two days of inspiration, fellowship, and practical training for advancing God&apos;s
+              kingdom through media ministry.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6">
             {conferenceData.whyAttend.map((item) => {
               const Icon = iconMap[item.icon] || Users;
               return (
                 <div key={item.id} className="card-dark-hover p-8 text-center">
-                  <div className="w-20 h-20 mx-auto mb-6 flex items-center justify-center rounded-full bg-accent/10 border border-accent/30">
-                    <Icon className="w-10 h-10 text-accent" />
+                  <div className="w-16 h-16 mx-auto mb-5 flex items-center justify-center rounded-full bg-[rgba(142,202,230,0.08)] border border-[rgba(142,202,230,0.28)]">
+                    <Icon className="w-8 h-8 text-[#8ECAE6]" />
                   </div>
-                  <h3 className="text-2xl font-semibold text-white mb-4">
-                    {item.name}
-                  </h3>
-                  <p className="text-foreground-muted leading-relaxed">
-                    {item.description}
-                  </p>
+                  <h3 className="text-xl font-bold text-white mb-3">{item.name}</h3>
+                  <p className="text-[15px] text-[#94A8BE] leading-relaxed">{item.description}</p>
                 </div>
               );
             })}
@@ -292,259 +460,29 @@ export default function CAMMConference2027() {
         </div>
       </section>
 
-      {/* Schedule & Registration Split Section */}
-      <section id="schedule" className="py-20 bg-[#0B1526]">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
-            {/* Left Column - Schedule */}
-            <div className="lg:col-span-3">
-              <div className="mb-8">
-                <span className="inline-block px-4 py-2 text-sm font-medium text-accent uppercase tracking-widest mb-4">
-                  Daily Schedule
-                </span>
-                <h2 className="text-4xl font-bold text-white mb-4">
-                  Conference Schedule
-                </h2>
-                <p className="text-foreground-muted">
-                  {conferenceData.dates.days} days of inspiration, training, and
-                  community.
-                </p>
-              </div>
-
-              {/* Day Tabs */}
-              <div className="flex flex-wrap gap-4 mb-6">
-                <button
-                  onClick={() => setActiveDay(1)}
-                  className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                    activeDay === 1
-                      ? "bg-accent text-[#07101E] shadow-lg shadow-accent/30"
-                      : "bg-card border border-border text-foreground-muted hover:border-accent/50"
-                  }`}
-                >
-                  <span className="block text-xs uppercase tracking-wider opacity-70">
-                    Day 1
-                  </span>
-                  <span className="block">
-                    {conferenceData.schedule.day1.shortDate}
-                  </span>
-                </button>
-                <button
-                  onClick={() => setActiveDay(2)}
-                  className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                    activeDay === 2
-                      ? "bg-accent text-[#07101E] shadow-lg shadow-accent/30"
-                      : "bg-card border border-border text-foreground-muted hover:border-accent/50"
-                  }`}
-                >
-                  <span className="block text-xs uppercase tracking-wider opacity-70">
-                    Day 2
-                  </span>
-                  <span className="block">
-                    {conferenceData.schedule.day2.shortDate}
-                  </span>
-                </button>
-              </div>
-
-              {/* Track Filter Pills */}
-              <div className="flex flex-wrap gap-2 mb-8">
-                <button
-                  onClick={() => setActiveTrack("all")}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                    activeTrack === "all"
-                      ? "bg-accent/20 text-accent border border-accent/50"
-                      : "bg-card/50 text-foreground-muted border border-transparent hover:border-border"
-                  }`}
-                >
-                  All Tracks
-                </button>
-                {conferenceData.tracks.map((track) => (
-                  <button
-                    key={track.id}
-                    onClick={() => setActiveTrack(track.id)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                      activeTrack === track.id
-                        ? "bg-accent/20 text-accent border border-accent/50"
-                        : "bg-card/50 text-foreground-muted border border-transparent hover:border-border"
-                    }`}
-                  >
-                    {track.name}
-                  </button>
-                ))}
-              </div>
-
-              {/* Day Theme */}
-              <div className="mb-6 p-4 bg-card rounded-xl border border-border">
-                <p className="text-accent font-medium text-sm uppercase tracking-wider mb-1">
-                  {currentSchedule.dayLabel} Theme
-                </p>
-                <p className="text-white font-semibold">
-                  {currentSchedule.theme}
-                </p>
-              </div>
-
-              {/* Timeline */}
-              <div className="space-y-4">
-                {filteredEvents.map((event, index) => (
-                  <div key={index} className="flex gap-4">
-                    {/* Timeline Node */}
-                    <div className="flex flex-col items-center">
-                      <div
-                        className={`w-3 h-3 rounded-full ${
-                          event.type === "lesson" || event.type === "workshop"
-                            ? "bg-accent glow-accent"
-                            : event.type === "meal"
-                            ? "bg-emerald-500"
-                            : event.type === "break"
-                            ? "bg-foreground-muted/30"
-                            : "bg-accent/50"
-                        }`}
-                      ></div>
-                      {index < filteredEvents.length - 1 && (
-                        <div className="w-px h-full bg-border min-h-[60px]"></div>
-                      )}
-                    </div>
-
-                    {/* Event Content */}
-                    <div
-                      className={`flex-1 pb-4 ${
-                        event.type === "break" ? "opacity-60" : ""
-                      }`}
-                    >
-                      <div className="flex flex-wrap items-center gap-2 mb-1">
-                        <span className="text-accent font-mono text-sm">
-                          {event.time}
-                        </span>
-                        {event.location && (
-                          <span className="text-xs text-foreground-muted bg-card px-2 py-0.5 rounded">
-                            {event.location}
-                          </span>
-                        )}
-                      </div>
-                      <h4 className="text-white font-semibold">{event.title}</h4>
-                      {event.subtitle && (
-                        <p className="text-foreground-muted text-sm">
-                          {event.subtitle}
-                        </p>
-                      )}
-
-                      {/* Track Details for Lessons */}
-                      {event.tracks && (
-                        <div className="mt-3 space-y-2 pl-4 border-l-2 border-accent/30">
-                          {Object.entries(event.tracks)
-                            .filter(
-                              ([track]) =>
-                                activeTrack === "all" || track === activeTrack
-                            )
-                            .map(([track, topic]) => (
-                              <div key={track} className="text-sm">
-                                <span className="text-accent font-medium capitalize">
-                                  {track}:
-                                </span>{" "}
-                                <span className="text-foreground-muted">
-                                  {topic}
-                                </span>
-                              </div>
-                            ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right Column - Registration Hub */}
-            <div className="lg:col-span-2 space-y-6">
-              {/* Registration Card */}
-              <div className="card-dark p-8">
-                <span className="inline-block px-4 py-2 text-sm font-medium text-accent uppercase tracking-widest mb-4">
-                  Get Involved
-                </span>
-                <h3 className="text-3xl font-bold text-white mb-4">
-                  Registration is Open
-                </h3>
-                <p className="text-foreground-muted mb-6">
-                  Join us for {conferenceData.dates.days} days of powerful
-                  teaching, practical training, and meaningful connections.
-                </p>
-                <a
-                  href="#registration"
-                  className="flex items-center justify-center gap-2 w-full py-4 bg-accent hover:bg-accent-hover text-[#07101E] font-bold rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-accent/30"
-                >
-                  REGISTER NOW
-                  <ArrowRight className="w-5 h-5" />
-                </a>
-              </div>
-
-              {/* Quick Info Cards */}
-              <div className="grid grid-cols-3 gap-4">
-                <div className="card-dark p-4 text-center">
-                  <Calendar className="w-6 h-6 text-accent mx-auto mb-2" />
-                  <p className="text-xs text-foreground-muted uppercase tracking-wider">
-                    {conferenceData.dates.shortDisplay}
-                  </p>
-                  <p className="text-sm text-white font-medium mt-1">
-                    {conferenceData.dates.days} Days
-                  </p>
-                </div>
-                <div className="card-dark p-4 text-center">
-                  <MapPin className="w-6 h-6 text-accent mx-auto mb-2" />
-                  <p className="text-xs text-foreground-muted uppercase tracking-wider">
-                    {conferenceData.venue.city}, {conferenceData.venue.state}
-                  </p>
-                  <p className="text-sm text-white font-medium mt-1">
-                    {conferenceData.venue.name}
-                  </p>
-                </div>
-                <div className="card-dark p-4 text-center">
-                  <Video className="w-6 h-6 text-accent mx-auto mb-2" />
-                  <p className="text-xs text-foreground-muted uppercase tracking-wider">
-                    In-Person &
-                  </p>
-                  <p className="text-sm text-white font-medium mt-1">
-                    Hands-on
-                  </p>
-                </div>
-              </div>
-
-              {/* Quote Card */}
-              <div className="card-dark p-8 relative overflow-hidden">
-                <div className="absolute top-4 left-4 text-6xl text-accent/10 font-serif">
-                  &ldquo;
-                </div>
-                <blockquote className="relative z-10 text-lg text-white italic leading-relaxed">
-                  &ldquo;{conferenceData.quote}&rdquo;
-                </blockquote>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Registration Section with Subsplash Embed */}
-      <section id="registration" className="py-20 bg-[#07101E]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <span className="inline-block px-4 py-2 text-sm font-medium text-accent uppercase tracking-widest mb-4">
+      <section id="registration" className="py-20 bg-[#070E1B]">
+        <div className="max-w-[1120px] mx-auto px-6 lg:px-10">
+          <div className="text-center mb-10">
+            <div className="text-xs font-bold tracking-[0.2em] text-[#8ECAE6] uppercase mb-3">
               Secure Your Spot
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            </div>
+            <h2 className="text-3xl lg:text-4xl font-extrabold text-white mb-4">
               Register for CAMM 2027
             </h2>
-            <p className="text-xl text-foreground-muted max-w-2xl mx-auto">
-              Complete your registration below to join fellow believers at CAMM
-              Conference 2027
+            <p className="text-lg text-[#94A8BE] max-w-xl mx-auto">
+              Complete your registration below to join fellow believers at CAMM Conference 2027
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto">
             <div className="card-dark overflow-hidden">
-              {/* Registration Header */}
-              <div className="p-6 bg-accent/10 border-b border-border">
-                <h3 className="text-xl font-semibold text-white text-center">
+              {/* Header */}
+              <div className="p-6 bg-[rgba(142,202,230,0.08)] hairline-b">
+                <h3 className="text-lg font-bold text-white text-center">
                   Complete Your Registration
                 </h3>
-                <p className="text-foreground-muted text-center mt-2">
+                <p className="text-[#94A8BE] text-center mt-1 text-sm">
                   {conferenceData.dates.display} • {conferenceData.venue.name},{" "}
                   {conferenceData.venue.city}, {conferenceData.venue.state}
                 </p>
@@ -554,44 +492,35 @@ export default function CAMMConference2027() {
               <div className="p-6">
                 {iframeLoading && !iframeBlocked && (
                   <div className="flex flex-col items-center justify-center py-20">
-                    <div className="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-full animate-spin mb-4"></div>
-                    <p className="text-foreground-muted">
-                      Loading registration form...
-                    </p>
+                    <div className="w-12 h-12 border-4 border-[#8ECAE6]/30 border-t-[#8ECAE6] rounded-full animate-spin mb-4"></div>
+                    <p className="text-[#94A8BE]">Loading registration form...</p>
                   </div>
                 )}
 
                 {iframeBlocked ? (
                   <div className="py-12 text-center">
                     <AlertCircle className="w-16 h-16 text-amber-500 mx-auto mb-4" />
-                    <h4 className="text-xl font-semibold text-white mb-4">
+                    <h4 className="text-xl font-bold text-white mb-4">
                       Registration Form Not Loading?
                     </h4>
-                    <p className="text-foreground-muted mb-6 max-w-md mx-auto">
-                      If you&apos;re using an ad-blocker or have strict browser
-                      privacy settings, the embedded form may not display. No
-                      worries! Use the button below to complete your
-                      registration.
+                    <p className="text-[#94A8BE] mb-6 max-w-md mx-auto">
+                      If you&apos;re using an ad-blocker or have strict browser privacy settings,
+                      the embedded form may not display. No worries! Use the button below.
                     </p>
                     <a
                       href={conferenceData.registration.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-8 py-4 bg-accent hover:bg-accent-hover text-[#07101E] font-bold rounded-full transition-all duration-300"
+                      className="btn-solid-accent inline-flex"
                     >
-                      Open Official Registration
-                      <ExternalLink className="w-5 h-5" />
+                      Open in New Tab <ExternalLink className="w-4 h-4" />
                     </a>
-                    <p className="text-sm text-foreground-muted mt-4">
+                    <p className="text-sm text-[#6E849B] mt-4">
                       Opens Subsplash registration in a new tab
                     </p>
                   </div>
                 ) : (
-                  <div
-                    className={`w-full rounded-lg overflow-hidden border border-border ${
-                      iframeLoading ? "hidden" : ""
-                    }`}
-                  >
+                  <div className={`w-full rounded-lg overflow-hidden ${iframeLoading ? "hidden" : ""}`}>
                     <iframe
                       ref={iframeRef}
                       src={conferenceData.registration.url}
@@ -606,18 +535,17 @@ export default function CAMMConference2027() {
                   </div>
                 )}
 
-                {/* Alternative Registration Link */}
                 {!iframeBlocked && !iframeLoading && (
                   <div className="mt-4 text-center">
-                    <p className="text-sm text-foreground-muted">
+                    <p className="text-sm text-[#6E849B]">
                       Having trouble?{" "}
                       <a
                         href={conferenceData.registration.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-accent hover:underline"
+                        className="text-[#8ECAE6] hover:underline"
                       >
-                        Open registration in new tab
+                        Open in new tab ↗
                       </a>
                     </p>
                   </div>
@@ -625,32 +553,28 @@ export default function CAMMConference2027() {
               </div>
 
               {/* Trust Signals */}
-              <div className="p-6 bg-card border-t border-border">
+              <div className="p-5 bg-[#050A14] hairline-t">
                 <div className="flex flex-wrap justify-center items-center gap-6 text-sm">
-                  <div className="flex items-center gap-2 text-foreground-muted">
-                    <Shield className="w-4 h-4 text-accent" />
+                  <div className="flex items-center gap-2 text-[#94A8BE]">
+                    <Shield className="w-4 h-4 text-[#8ECAE6]" />
                     <span>Secure Payment via Subsplash</span>
                   </div>
-                  <div className="flex items-center gap-2 text-foreground-muted">
-                    <CheckCircle className="w-4 h-4 text-accent" />
+                  <div className="flex items-center gap-2 text-[#94A8BE]">
+                    <CheckCircle className="w-4 h-4 text-[#8ECAE6]" />
                     <span>Instant Confirmation</span>
                   </div>
-                  <div className="flex items-center gap-2 text-foreground-muted">
-                    <CheckCircle className="w-4 h-4 text-accent" />
+                  <div className="flex items-center gap-2 text-[#94A8BE]">
+                    <CheckCircle className="w-4 h-4 text-[#8ECAE6]" />
                     <span>Full Refund Policy</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Contact for Registration Help */}
-            <div className="mt-8 text-center">
-              <p className="text-foreground-muted">
+            <div className="mt-6 text-center">
+              <p className="text-[#6E849B]">
                 Questions about registration? Contact us at{" "}
-                <a
-                  href={`tel:${conferenceData.contact.phone}`}
-                  className="text-accent hover:underline"
-                >
+                <a href={`tel:${conferenceData.contact.phone}`} className="text-[#8ECAE6] hover:underline">
                   {conferenceData.contact.phoneDisplay}
                 </a>
               </p>
@@ -660,40 +584,34 @@ export default function CAMMConference2027() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-20 bg-[#0B1526]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <span className="inline-block px-4 py-2 text-sm font-medium text-accent uppercase tracking-widest mb-4">
+      <section id="faq" className="py-20 bg-[#040811]">
+        <div className="max-w-[900px] mx-auto px-6 lg:px-10">
+          <div className="text-center mb-10">
+            <div className="text-xs font-bold tracking-[0.2em] text-[#8ECAE6] uppercase mb-3">
               Questions?
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            </div>
+            <h2 className="text-3xl lg:text-4xl font-extrabold text-white">
               Frequently Asked Questions
             </h2>
           </div>
 
-          <div className="max-w-3xl mx-auto space-y-4">
+          <div className="space-y-3">
             {conferenceData.faqs.map((faq, index) => (
               <div key={index} className="card-dark overflow-hidden">
                 <button
-                  onClick={() =>
-                    setExpandedFaq(expandedFaq === index ? null : index)
-                  }
-                  className="w-full p-6 flex items-center justify-between text-left hover:bg-card-hover transition-colors"
+                  onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
+                  className="w-full p-5 flex items-center justify-between text-left hover:bg-[#0A1322] transition-colors"
                 >
-                  <span className="text-white font-semibold pr-4">
-                    {faq.question}
-                  </span>
+                  <span className="text-white font-semibold pr-4">{faq.question}</span>
                   {expandedFaq === index ? (
-                    <ChevronUp className="w-5 h-5 text-accent flex-shrink-0" />
+                    <ChevronUp className="w-5 h-5 text-[#8ECAE6] flex-shrink-0" />
                   ) : (
-                    <ChevronDown className="w-5 h-5 text-accent flex-shrink-0" />
+                    <ChevronDown className="w-5 h-5 text-[#8ECAE6] flex-shrink-0" />
                   )}
                 </button>
                 {expandedFaq === index && (
-                  <div className="px-6 pb-6">
-                    <p className="text-foreground-muted leading-relaxed">
-                      {faq.answer}
-                    </p>
+                  <div className="px-5 pb-5">
+                    <p className="text-[#94A8BE] leading-relaxed">{faq.answer}</p>
                   </div>
                 )}
               </div>
@@ -702,24 +620,21 @@ export default function CAMMConference2027() {
         </div>
       </section>
 
-      {/* Location & Contact Section */}
-      <section id="location" className="py-20 bg-[#07101E]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <span className="inline-block px-4 py-2 text-sm font-medium text-accent uppercase tracking-widest mb-4">
+      {/* Venue & Contact Section */}
+      <section id="venue" className="py-20 bg-[#070E1B]">
+        <div className="max-w-[900px] mx-auto px-6 lg:px-10">
+          <div className="text-center mb-10">
+            <div className="text-xs font-bold tracking-[0.2em] text-[#8ECAE6] uppercase mb-3">
               Join Us
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Location & Contact
-            </h2>
+            </div>
+            <h2 className="text-3xl lg:text-4xl font-extrabold text-white">Location & Contact</h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Venue Card */}
+          <div className="grid md:grid-cols-2 gap-6">
             <div className="card-dark-hover p-8">
-              <MapPin className="w-10 h-10 text-accent mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-2">Venue</h3>
-              <p className="text-foreground-muted mb-4">
+              <MapPin className="w-10 h-10 text-[#8ECAE6] mb-4" />
+              <h3 className="text-lg font-bold text-white mb-2">Venue</h3>
+              <p className="text-[#94A8BE] mb-4">
                 {conferenceData.venue.name}
                 <br />
                 {conferenceData.venue.city}, {conferenceData.venue.state}
@@ -728,23 +643,19 @@ export default function CAMMConference2027() {
                 href={conferenceData.venue.mapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-accent hover:text-accent-hover transition-colors"
+                className="inline-flex items-center gap-2 text-[#8ECAE6] hover:text-[#9AD4EE] transition-colors"
               >
-                View on Google Maps
-                <ExternalLink className="w-4 h-4" />
+                View on Google Maps <ExternalLink className="w-4 h-4" />
               </a>
             </div>
 
-            {/* Contact Card */}
             <div className="card-dark-hover p-8">
-              <Phone className="w-10 h-10 text-accent mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-2">Contact</h3>
-              <p className="text-foreground-muted mb-4">
-                Questions? We&apos;re here to help!
-              </p>
+              <Phone className="w-10 h-10 text-[#8ECAE6] mb-4" />
+              <h3 className="text-lg font-bold text-white mb-2">Contact</h3>
+              <p className="text-[#94A8BE] mb-4">Questions? We&apos;re here to help!</p>
               <a
                 href={`tel:${conferenceData.contact.phone}`}
-                className="inline-flex items-center gap-2 text-accent hover:text-accent-hover transition-colors text-xl font-semibold"
+                className="inline-flex items-center gap-2 text-[#8ECAE6] hover:text-[#9AD4EE] transition-colors text-xl font-bold"
               >
                 <Phone className="w-5 h-5" />
                 {conferenceData.contact.phoneDisplay}
@@ -755,75 +666,34 @@ export default function CAMMConference2027() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 bg-[#050c18] border-t border-border">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            {/* Logo & Description */}
-            <div className="md:col-span-2">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg overflow-hidden">
-                  <Image
-                    src={conferenceData.logo}
-                    alt="CAMM Logo"
-                    width={40}
-                    height={40}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <span className="font-semibold text-white">
-                  CAMM <span className="text-accent">CONFERENCE</span>
-                </span>
-              </div>
-              <p className="text-foreground-muted max-w-sm">
-                {conferenceData.fullName} - Equipping creators and advancing the
-                mission through media ministry.
-              </p>
-            </div>
-
-            {/* Quick Links */}
-            <div>
-              <h4 className="font-semibold text-white mb-4">Quick Links</h4>
-              <nav className="space-y-2">
-                {conferenceData.navigation.map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    className="block text-foreground-muted hover:text-accent transition-colors"
-                  >
-                    {item.label}
-                  </a>
-                ))}
-                <Link
-                  href="/feedback"
-                  className="block text-foreground-muted hover:text-accent transition-colors"
-                >
-                  Feedback
-                </Link>
-              </nav>
-            </div>
-
-            {/* Contact */}
-            <div>
-              <h4 className="font-semibold text-white mb-4">Contact</h4>
-              <div className="space-y-2">
-                <a
-                  href={`tel:${conferenceData.contact.phone}`}
-                  className="flex items-center gap-2 text-foreground-muted hover:text-accent transition-colors"
-                >
-                  <Phone className="w-4 h-4" />
-                  {conferenceData.contact.phoneDisplay}
-                </a>
-                <p className="text-foreground-muted">
-                  {conferenceData.venue.city}, {conferenceData.venue.state}
-                </p>
-              </div>
-            </div>
+      <footer className="py-7 bg-[#03060D] hairline-t">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 flex flex-col lg:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3.5">
+            <Image
+              src={conferenceData.logo}
+              alt="CAMM Conference 2027"
+              width={120}
+              height={34}
+              className="h-8 w-auto object-contain"
+            />
           </div>
 
-          <div className="border-t border-border pt-8 text-center">
-            <p className="text-foreground-muted text-sm">
-              &copy; {conferenceData.year} CAMM Conference. All rights reserved.
-            </p>
+          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-[#A9BCD0]">
+            {conferenceData.navigation.map((item) => (
+              <a key={item.href} href={item.href} className="hover:text-white transition-colors">
+                {item.label}
+              </a>
+            ))}
+            <Link href="/feedback" className="hover:text-white transition-colors">
+              Feedback
+            </Link>
+            <span className="text-[#6E849B]">
+              {conferenceData.venue.name} • {conferenceData.venue.city}, {conferenceData.venue.state}
+            </span>
+          </nav>
+
+          <div className="text-xs text-[#6E849B]">
+            © {conferenceData.year} {conferenceData.fullName}. All rights reserved.
           </div>
         </div>
       </footer>
