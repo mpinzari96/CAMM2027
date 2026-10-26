@@ -81,17 +81,17 @@ export default function CAMMConference2027() {
   const selectedEvent = selectedBreakout !== null ? currentSchedule.events[selectedBreakout] : null;
 
   return (
-    <div className="min-h-screen bg-[#040811]">
+    <div className="min-h-screen bg-[#040811] overflow-x-hidden w-full">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 glassmorphism hairline-b">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 h-[76px] flex items-center justify-between">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10 h-[68px] sm:h-[76px] flex items-center justify-between">
           <Link href="#home" className="flex items-center gap-3.5">
             <Image
               src={conferenceData.logo}
               alt="CAMM Conference 2027"
               width={140}
               height={40}
-              className="h-10 w-auto object-contain"
+              className="h-8 sm:h-10 w-auto max-w-[160px] object-contain"
               priority
             />
           </Link>
@@ -157,32 +157,32 @@ export default function CAMMConference2027() {
       {/* Hero Section with Cinema Video Dock */}
       <section
         id="home"
-        className="relative pt-[76px]"
+        className="relative pt-[68px] sm:pt-[76px]"
         style={{
           background: `linear-gradient(180deg, rgba(4,8,17,0.42) 0%, rgba(4,8,17,0.78) 70%, #040811 100%), url('/mockup-assets/hero-bg.jpg') center/cover no-repeat`,
         }}
       >
-        <div className="max-w-[1120px] mx-auto px-6 lg:px-10 pt-16 pb-11 text-center">
+        <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-10 pt-10 sm:pt-16 pb-8 sm:pb-11 text-center">
           {/* Eyebrow */}
-          <div className="text-[13px] font-bold tracking-[0.24em] text-[#8ECAE6] uppercase mb-3.5">
+          <div className="text-[11px] sm:text-[13px] font-bold tracking-[0.14em] sm:tracking-[0.24em] text-[#8ECAE6] uppercase mb-3">
             {conferenceData.fullName} • {conferenceData.dates.shortDisplay}
           </div>
 
           {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-light tracking-[0.08em] uppercase text-white mb-3.5">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] font-light tracking-[0.04em] sm:tracking-[0.08em] uppercase text-white mb-3 leading-tight break-words">
             Welcome to the <strong className="font-extrabold">CAMM Conference</strong>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg lg:text-[19px] text-[#C7D7E8] mb-10 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-[19px] text-[#C7D7E8] mb-6 sm:mb-10 max-w-2xl mx-auto px-2">
             {conferenceData.tagline}
           </p>
 
           {/* Cinema Video Dock */}
-          <div className="cinema-dock max-w-[860px] mx-auto p-5 flex flex-col md:flex-row items-center gap-6">
+          <div className="cinema-dock max-w-[860px] mx-auto p-4 sm:p-5 flex flex-col md:flex-row items-center gap-4 sm:gap-6">
             {/* Thumbnail */}
             <div
-              className="w-full md:w-[190px] h-[106px] rounded-[10px] border border-[rgba(142,202,230,0.45)] flex-shrink-0 flex items-center justify-center bg-cover bg-center"
+              className="w-full md:w-[190px] h-[100px] sm:h-[106px] rounded-[10px] border border-[rgba(142,202,230,0.45)] flex-shrink-0 flex items-center justify-center bg-cover bg-center"
               style={{ backgroundImage: `url('/mockup-assets/camera-monitor.jpg')` }}
             >
               <button className="play-circle">
@@ -191,37 +191,37 @@ export default function CAMMConference2027() {
             </div>
 
             {/* Video Info */}
-            <div className="flex-1 text-left">
-              <div className="text-xs font-extrabold tracking-[0.16em] text-[#8ECAE6] uppercase mb-1.5">
+            <div className="flex-1 text-center md:text-left min-w-0">
+              <div className="text-[10px] sm:text-xs font-extrabold tracking-[0.12em] sm:tracking-[0.16em] text-[#8ECAE6] uppercase mb-1.5">
                 Watch Welcome Video • 2:18
               </div>
-              <div className="text-lg lg:text-xl font-bold text-white mb-1.5">
+              <div className="text-base sm:text-lg lg:text-xl font-bold text-white mb-1.5 break-words">
                 Inside CAMM 2027: 4 Tracks, Live Stage Labs & Fellowship
               </div>
-              <div className="text-sm text-[#94A8BE]">
+              <div className="text-xs sm:text-sm text-[#94A8BE] hidden sm:block">
                 Click to play full-screen with audio or scrub the preview timeline below.
               </div>
             </div>
 
             {/* Play Button */}
-            <button className="btn-solid-accent flex-shrink-0 whitespace-nowrap">
+            <button className="btn-solid-accent w-full md:w-auto justify-center flex-shrink-0">
               Play Intro <Play className="w-4 h-4 fill-current" />
             </button>
           </div>
         </div>
 
         {/* Scrubber Bar */}
-        <div className="scrubber-bar px-6 lg:px-10 py-3.5 flex items-center gap-5">
-          <button className="text-[#8ECAE6] hover:text-white transition-colors">
+        <div className="scrubber-bar px-4 sm:px-6 lg:px-10 py-3 flex items-center gap-2.5 sm:gap-5">
+          <button className="text-[#8ECAE6] hover:text-white transition-colors flex-shrink-0">
             <Play className="w-4 h-4 fill-current" />
           </button>
-          <div className="scrubber-track">
+          <div className="scrubber-track min-w-0 flex-1">
             <div className="scrubber-fill" style={{ width: "0%" }}></div>
             <div className="scrubber-knob" style={{ left: "0%" }}></div>
           </div>
-          <div className="flex items-center gap-4 text-xs font-semibold tracking-[0.08em] text-[#B8CBE0] tabular-nums">
+          <div className="flex items-center gap-2 sm:gap-4 text-[10px] sm:text-xs font-semibold tracking-[0.08em] text-[#B8CBE0] tabular-nums flex-shrink-0">
             <span>0:00 / 2:18</span>
-            <button className="text-[#8ECAE6] hover:text-white transition-colors">
+            <button className="text-[#8ECAE6] hover:text-white transition-colors hidden sm:block">
               <Volume2 className="w-4 h-4" />
             </button>
             <span className="hd-badge">HD</span>
@@ -235,22 +235,26 @@ export default function CAMMConference2027() {
 
       {/* 4-Column Track Strip */}
       <section id="tracks" className="bg-[#050A14] hairline-b">
-        <div className="grid grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {conferenceData.tracks.map((track, index) => {
             const Icon = iconMap[track.icon] || Video;
             return (
               <div
                 key={track.id}
-                className={`p-7 flex items-start gap-4.5 ${index < 3 ? "hairline-r" : ""}`}
+                className={`p-5 sm:p-7 flex items-start gap-4 min-w-0 hairline-b sm:hairline-b-0 ${
+                  index < 3 ? "lg:hairline-r" : ""
+                } ${index % 2 === 0 ? "sm:hairline-r lg:hairline-r" : "sm:hairline-r-0"} ${
+                  index < 2 ? "sm:hairline-b lg:hairline-b-0" : ""
+                }`}
               >
-                <div className="track-icon-box">
+                <div className="track-icon-box flex-shrink-0">
                   <Icon className="w-5 h-5" />
                 </div>
-                <div>
-                  <div className="text-sm font-extrabold tracking-[0.14em] uppercase text-white mb-1.5">
+                <div className="min-w-0">
+                  <div className="text-xs sm:text-sm font-extrabold tracking-[0.10em] sm:tracking-[0.14em] uppercase text-white mb-1.5">
                     {track.name}
                   </div>
-                  <div className="text-sm text-[#94A8BE] leading-[1.45]">
+                  <div className="text-xs sm:text-sm text-[#94A8BE] leading-[1.45]">
                     {track.description}
                   </div>
                 </div>
@@ -262,21 +266,21 @@ export default function CAMMConference2027() {
 
       {/* Master-Detail Schedule & Breakout Track Matrix */}
       <section id="schedule" className="hairline-b">
-        <div className="max-w-[1280px] mx-auto grid lg:grid-cols-2 hairline-l hairline-r">
+        <div className="max-w-[1280px] mx-auto grid lg:grid-cols-2 lg:hairline-l lg:hairline-r">
           {/* Left Column - Schedule Timeline */}
-          <div className="p-10 lg:p-12 hairline-r">
-            <div className="text-xs font-bold tracking-[0.2em] text-[#8ECAE6] uppercase mb-2">
+          <div className="p-5 sm:p-8 lg:p-12 min-w-0 lg:hairline-r">
+            <div className="text-[10px] sm:text-xs font-bold tracking-[0.16em] sm:tracking-[0.2em] text-[#8ECAE6] uppercase mb-2">
               Left-Aligned Tabular Timeline
             </div>
-            <h2 className="text-[28px] font-extrabold tracking-[0.06em] uppercase text-white mb-6">
+            <h2 className="text-2xl sm:text-[28px] font-extrabold tracking-[0.04em] sm:tracking-[0.06em] uppercase text-white mb-6 break-words">
               Conference Schedule
             </h2>
 
             {/* Day Switcher */}
-            <div className="flex gap-2.5 mb-7">
+            <div className="flex flex-wrap gap-2 mb-6">
               <button
                 onClick={() => handleDayChange(1)}
-                className={`px-5 py-2.5 rounded-full text-[13px] font-extrabold tracking-[0.12em] uppercase transition-all ${
+                className={`px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-extrabold tracking-[0.08em] sm:tracking-[0.12em] uppercase transition-all ${
                   activeDay === 1
                     ? "bg-[#8ECAE6] text-[#040811]"
                     : "border border-[rgba(255,255,255,0.14)] text-[#9FB2C7] hover:border-[#8ECAE6]/50"
@@ -286,7 +290,7 @@ export default function CAMMConference2027() {
               </button>
               <button
                 onClick={() => handleDayChange(2)}
-                className={`px-5 py-2.5 rounded-full text-[13px] font-bold tracking-[0.12em] uppercase transition-all ${
+                className={`px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-bold tracking-[0.08em] sm:tracking-[0.12em] uppercase transition-all ${
                   activeDay === 2
                     ? "bg-[#8ECAE6] text-[#040811]"
                     : "border border-[rgba(255,255,255,0.14)] text-[#9FB2C7] hover:border-[#8ECAE6]/50"
@@ -297,7 +301,7 @@ export default function CAMMConference2027() {
             </div>
 
             {/* Timeline */}
-            <div className="relative pl-7 timeline-spine ml-1.5">
+            <div className="relative pl-5 sm:pl-7 timeline-spine ml-1 min-w-0">
               {currentSchedule.events.map((event, index) => {
                 const isSelected = selectedBreakout === index;
                 const isBreakout = event.isBreakout;
@@ -305,8 +309,8 @@ export default function CAMMConference2027() {
                 return (
                   <div
                     key={index}
-                    className={`relative grid grid-cols-[118px_1fr] gap-4 py-4.5 ${
-                      isSelected ? "schedule-row-selected px-3.5 my-2" : ""
+                    className={`relative grid grid-cols-1 sm:grid-cols-[118px_1fr] gap-1 sm:gap-4 py-4 min-w-0 ${
+                      isSelected ? "schedule-row-selected px-3 my-2" : ""
                     } ${!isSelected && index < currentSchedule.events.length - 1 ? "hairline-b" : ""}`}
                   >
                     {/* Timeline Node */}
@@ -320,7 +324,7 @@ export default function CAMMConference2027() {
 
                     {/* Time */}
                     <div
-                      className={`text-lg font-bold tabular-nums ${
+                      className={`text-base sm:text-lg font-bold tabular-nums ${
                         isSelected ? "text-[#8ECAE6]" : "text-[#DCEBFA]"
                       }`}
                     >
@@ -328,24 +332,20 @@ export default function CAMMConference2027() {
                     </div>
 
                     {/* Content */}
-                    <div>
+                    <div className="min-w-0">
                       {isBreakout ? (
                         <button
                           onClick={() => setSelectedBreakout(index)}
-                          className="text-left w-full"
+                          className="text-left w-full min-w-0"
                         >
-                          <div
-                            className={`text-xl font-bold ${
-                              isSelected ? "text-white" : "text-white"
-                            }`}
-                          >
+                          <div className="text-lg sm:text-xl font-bold text-white break-words">
                             {event.title}
                             {isSelected && (
                               <span className="ml-2 text-[#8ECAE6]">(Selected →)</span>
                             )}
                           </div>
                           <div
-                            className={`text-[15px] mt-1 ${
+                            className={`text-sm sm:text-[15px] mt-1 break-words ${
                               isSelected ? "text-[#B8D8EE]" : "text-[#8FA5BC]"
                             }`}
                           >
@@ -354,8 +354,8 @@ export default function CAMMConference2027() {
                         </button>
                       ) : (
                         <>
-                          <div className="text-xl font-bold text-white">{event.title}</div>
-                          <div className="text-[15px] text-[#8FA5BC] mt-1">{event.subtitle}</div>
+                          <div className="text-lg sm:text-xl font-bold text-white break-words">{event.title}</div>
+                          <div className="text-sm sm:text-[15px] text-[#8FA5BC] mt-1 break-words">{event.subtitle}</div>
                         </>
                       )}
                     </div>
@@ -366,29 +366,29 @@ export default function CAMMConference2027() {
           </div>
 
           {/* Right Column - Breakout Track Matrix & Registration */}
-          <div className="p-10 lg:p-12 bg-[#050A14]">
+          <div className="p-5 sm:p-8 lg:p-12 min-w-0 bg-[#050A14]">
             {/* Breakout Track Matrix Inspector */}
             {selectedEvent && selectedEvent.isBreakout && selectedEvent.tracks && (
-              <div className="matrix-card mb-6">
+              <div className="matrix-card mb-6 min-w-0">
                 <div className="flex flex-wrap justify-between items-center gap-2 mb-4">
-                  <div className="text-xs font-extrabold tracking-[0.16em] text-[#8ECAE6] uppercase">
+                  <div className="text-[10px] sm:text-xs font-extrabold tracking-[0.12em] sm:tracking-[0.16em] text-[#8ECAE6] uppercase break-words">
                     {selectedEvent.time} Breakout Inspector • 4 Tracks
                   </div>
-                  <span className="text-xs text-[#94A8BE]">Click any time slot on left</span>
+                  <span className="text-xs text-[#94A8BE] hidden sm:inline">Click any time slot on left</span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {Object.entries(selectedEvent.tracks).map(([trackId, trackData]) => {
                     const track = conferenceData.tracks.find((t) => t.id === trackId);
                     return (
-                      <div key={trackId} className="matrix-cell">
+                      <div key={trackId} className="matrix-cell min-w-0">
                         <div className="text-[11px] font-extrabold tracking-[0.14em] text-[#8ECAE6] uppercase mb-1">
                           {track?.shortName || trackId} Track
                         </div>
-                        <div className="text-base font-bold text-white mb-1">
+                        <div className="text-sm sm:text-base font-bold text-white mb-1 break-words">
                           {typeof trackData === "object" ? trackData.title : trackData}
                         </div>
-                        <div className="text-[13px] text-[#8FA5BC]">
+                        <div className="text-[13px] text-[#8FA5BC] break-words">
                           {typeof trackData === "object" ? trackData.location : ""}
                         </div>
                       </div>
@@ -400,7 +400,7 @@ export default function CAMMConference2027() {
 
             {/* Registration Card with Crowd Background */}
             <div
-              className="rounded-[14px] border border-[rgba(255,255,255,0.09)] p-8 bg-cover bg-top"
+              className="rounded-[14px] border border-[rgba(255,255,255,0.09)] p-5 sm:p-8 bg-cover bg-top min-w-0"
               style={{
                 background: `linear-gradient(180deg, rgba(4,8,17,0.4) 0%, #040811 95%), url('/mockup-assets/crowd-top.jpg') top/cover no-repeat`,
               }}
@@ -408,17 +408,17 @@ export default function CAMMConference2027() {
               <div className="text-[11px] font-bold tracking-[0.18em] text-[#8ECAE6] uppercase mb-1.5">
                 Get Involved
               </div>
-              <h3 className="text-[30px] font-extrabold text-white mb-2.5">
+              <h3 className="text-2xl sm:text-[30px] font-extrabold text-white mb-2.5 break-words">
                 Registration is Open.
               </h3>
-              <p className="text-[15px] text-[#B8CBE0] leading-relaxed mb-5">
+              <p className="text-sm sm:text-[15px] text-[#B8CBE0] leading-relaxed mb-5 break-words">
                 {conferenceData.dates.shortDisplay} • {conferenceData.venue.name},{" "}
                 {conferenceData.venue.city}, {conferenceData.venue.state} • Subsplash Instant
                 Registration
               </p>
               <a
                 href="#registration"
-                className="btn-solid-accent inline-flex"
+                className="btn-solid-accent inline-flex w-full sm:w-auto justify-center"
               >
                 Register Now <ArrowRight className="w-4 h-4" />
               </a>
@@ -428,16 +428,16 @@ export default function CAMMConference2027() {
       </section>
 
       {/* Why Attend Section */}
-      <section id="about" className="py-20 bg-[#040811]">
-        <div className="max-w-[1120px] mx-auto px-6 lg:px-10">
-          <div className="text-center mb-14">
+      <section id="about" className="py-14 sm:py-20 bg-[#040811]">
+        <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-10">
+          <div className="text-center mb-10 sm:mb-14">
             <div className="text-xs font-bold tracking-[0.2em] text-[#8ECAE6] uppercase mb-3">
               Why Attend
             </div>
-            <h2 className="text-3xl lg:text-4xl font-extrabold text-white mb-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-4">
               Why Attend CAMM?
             </h2>
-            <p className="text-lg text-[#94A8BE] max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-[#94A8BE] max-w-2xl mx-auto">
               Two days of inspiration, fellowship, and practical training for advancing God&apos;s
               kingdom through media ministry.
             </p>
@@ -447,7 +447,7 @@ export default function CAMMConference2027() {
             {conferenceData.whyAttend.map((item) => {
               const Icon = iconMap[item.icon] || Users;
               return (
-                <div key={item.id} className="card-dark-hover p-8 text-center">
+                <div key={item.id} className="card-dark-hover p-5 sm:p-8 text-center min-w-0">
                   <div className="w-16 h-16 mx-auto mb-5 flex items-center justify-center rounded-full bg-[rgba(142,202,230,0.08)] border border-[rgba(142,202,230,0.28)]">
                     <Icon className="w-8 h-8 text-[#8ECAE6]" />
                   </div>
@@ -461,35 +461,35 @@ export default function CAMMConference2027() {
       </section>
 
       {/* Registration Section with Subsplash Embed */}
-      <section id="registration" className="py-20 bg-[#070E1B]">
-        <div className="max-w-[1120px] mx-auto px-6 lg:px-10">
+      <section id="registration" className="py-14 sm:py-20 bg-[#070E1B]">
+        <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-10">
           <div className="text-center mb-10">
             <div className="text-xs font-bold tracking-[0.2em] text-[#8ECAE6] uppercase mb-3">
               Secure Your Spot
             </div>
-            <h2 className="text-3xl lg:text-4xl font-extrabold text-white mb-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-4">
               Register for CAMM 2027
             </h2>
-            <p className="text-lg text-[#94A8BE] max-w-xl mx-auto">
+            <p className="text-base sm:text-lg text-[#94A8BE] max-w-xl mx-auto">
               Complete your registration below to join fellow believers at CAMM Conference 2027
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="card-dark overflow-hidden">
+          <div className="max-w-4xl mx-auto min-w-0">
+            <div className="card-dark overflow-hidden min-w-0">
               {/* Header */}
-              <div className="p-6 bg-[rgba(142,202,230,0.08)] hairline-b">
+              <div className="p-5 sm:p-6 bg-[rgba(142,202,230,0.08)] hairline-b">
                 <h3 className="text-lg font-bold text-white text-center">
                   Complete Your Registration
                 </h3>
-                <p className="text-[#94A8BE] text-center mt-1 text-sm">
+                <p className="text-[#94A8BE] text-center mt-1 text-sm break-words">
                   {conferenceData.dates.display} • {conferenceData.venue.name},{" "}
                   {conferenceData.venue.city}, {conferenceData.venue.state}
                 </p>
               </div>
 
               {/* Iframe Container */}
-              <div className="p-6">
+              <div className="p-4 sm:p-6 min-w-0">
                 {iframeLoading && !iframeBlocked && (
                   <div className="flex flex-col items-center justify-center py-20">
                     <div className="w-12 h-12 border-4 border-[#8ECAE6]/30 border-t-[#8ECAE6] rounded-full animate-spin mb-4"></div>
@@ -511,7 +511,7 @@ export default function CAMMConference2027() {
                       href={conferenceData.registration.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-solid-accent inline-flex"
+                      className="btn-solid-accent inline-flex w-full sm:w-auto justify-center"
                     >
                       Open in New Tab <ExternalLink className="w-4 h-4" />
                     </a>
@@ -520,14 +520,14 @@ export default function CAMMConference2027() {
                     </p>
                   </div>
                 ) : (
-                  <div className={`w-full rounded-lg overflow-hidden ${iframeLoading ? "hidden" : ""}`}>
+                  <div className={`w-full max-w-full rounded-lg overflow-hidden ${iframeLoading ? "hidden" : ""}`}>
                     <iframe
                       ref={iframeRef}
                       src={conferenceData.registration.url}
                       width="100%"
                       height="700"
                       frameBorder="0"
-                      className="w-full bg-white"
+                      className="w-full max-w-full bg-white"
                       title="CAMM Conference Registration"
                       onLoad={handleIframeLoad}
                       onError={() => setIframeBlocked(true)}
@@ -584,13 +584,13 @@ export default function CAMMConference2027() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-20 bg-[#040811]">
-        <div className="max-w-[900px] mx-auto px-6 lg:px-10">
+      <section id="faq" className="py-14 sm:py-20 bg-[#040811]">
+        <div className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-10">
           <div className="text-center mb-10">
             <div className="text-xs font-bold tracking-[0.2em] text-[#8ECAE6] uppercase mb-3">
               Questions?
             </div>
-            <h2 className="text-3xl lg:text-4xl font-extrabold text-white">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white">
               Frequently Asked Questions
             </h2>
           </div>
@@ -602,7 +602,7 @@ export default function CAMMConference2027() {
                   onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
                   className="w-full p-5 flex items-center justify-between text-left hover:bg-[#0A1322] transition-colors"
                 >
-                  <span className="text-white font-semibold pr-4">{faq.question}</span>
+                  <span className="text-white font-semibold pr-4 min-w-0 break-words">{faq.question}</span>
                   {expandedFaq === index ? (
                     <ChevronUp className="w-5 h-5 text-[#8ECAE6] flex-shrink-0" />
                   ) : (
@@ -621,17 +621,17 @@ export default function CAMMConference2027() {
       </section>
 
       {/* Venue & Contact Section */}
-      <section id="venue" className="py-20 bg-[#070E1B]">
-        <div className="max-w-[900px] mx-auto px-6 lg:px-10">
+      <section id="venue" className="py-14 sm:py-20 bg-[#070E1B]">
+        <div className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-10">
           <div className="text-center mb-10">
             <div className="text-xs font-bold tracking-[0.2em] text-[#8ECAE6] uppercase mb-3">
               Join Us
             </div>
-            <h2 className="text-3xl lg:text-4xl font-extrabold text-white">Location & Contact</h2>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white">Location & Contact</h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="card-dark-hover p-8">
+            <div className="card-dark-hover p-5 sm:p-8 min-w-0">
               <MapPin className="w-10 h-10 text-[#8ECAE6] mb-4" />
               <h3 className="text-lg font-bold text-white mb-2">Venue</h3>
               <p className="text-[#94A8BE] mb-4">
@@ -649,7 +649,7 @@ export default function CAMMConference2027() {
               </a>
             </div>
 
-            <div className="card-dark-hover p-8">
+            <div className="card-dark-hover p-5 sm:p-8 min-w-0">
               <Phone className="w-10 h-10 text-[#8ECAE6] mb-4" />
               <h3 className="text-lg font-bold text-white mb-2">Contact</h3>
               <p className="text-[#94A8BE] mb-4">Questions? We&apos;re here to help!</p>
@@ -667,7 +667,7 @@ export default function CAMMConference2027() {
 
       {/* Footer */}
       <footer className="py-7 bg-[#03060D] hairline-t">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10 flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3.5">
             <Image
               src={conferenceData.logo}

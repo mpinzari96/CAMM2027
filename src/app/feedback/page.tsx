@@ -47,17 +47,17 @@ export default function FeedbackPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#040811]">
+    <div className="min-h-screen bg-[#040811] overflow-x-hidden w-full">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 glassmorphism hairline-b">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 h-[76px] flex items-center justify-between">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10 h-[68px] sm:h-[76px] flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3.5">
             <Image
               src={conferenceData.logo}
               alt="CAMM Conference 2027"
               width={140}
               height={40}
-              className="h-10 w-auto object-contain"
+              className="h-8 sm:h-10 w-auto max-w-[160px] object-contain"
               priority
             />
           </Link>
@@ -111,7 +111,7 @@ export default function FeedbackPage() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden glassmorphism hairline-t">
-            <nav className="max-w-[1280px] mx-auto px-6 py-6 space-y-4">
+            <nav className="max-w-[1280px] mx-auto px-4 sm:px-6 py-6 space-y-4">
               <Link
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}
@@ -154,8 +154,8 @@ export default function FeedbackPage() {
       </header>
 
       {/* Main Content */}
-      <main className="pt-[100px] pb-20">
-        <div className="max-w-[900px] mx-auto px-6 lg:px-10">
+      <main className="pt-[92px] sm:pt-[100px] pb-20">
+        <div className="max-w-[900px] mx-auto px-4 sm:px-6 lg:px-10 min-w-0">
           {/* Back Link */}
           <Link
             href="/"
@@ -170,10 +170,10 @@ export default function FeedbackPage() {
             <div className="text-xs font-bold tracking-[0.2em] text-[#8ECAE6] uppercase mb-3">
               Your Voice Matters
             </div>
-            <h1 className="text-3xl lg:text-4xl font-extrabold text-white mb-4">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-4">
               Conference Feedback
             </h1>
-            <p className="text-lg text-[#94A8BE] max-w-xl mx-auto">
+            <p className="text-base sm:text-lg text-[#94A8BE] max-w-xl mx-auto">
               Help us improve CAMM Conference by sharing your experience and suggestions.
             </p>
           </div>
@@ -181,7 +181,7 @@ export default function FeedbackPage() {
           {submitted ? (
             /* Success Message */
             <div className="max-w-2xl mx-auto">
-              <div className="card-dark p-12 text-center">
+              <div className="card-dark p-5 sm:p-8 lg:p-12 text-center">
                 <div className="w-20 h-20 mx-auto mb-6 flex items-center justify-center rounded-full bg-emerald-500/20 border border-emerald-500/50">
                   <CheckCircle className="w-10 h-10 text-emerald-500" />
                 </div>
@@ -192,7 +192,7 @@ export default function FeedbackPage() {
                   Your input is invaluable in helping us make CAMM Conference even better. We
                   appreciate you taking the time to share your thoughts.
                 </p>
-                <Link href="/" className="btn-solid-accent inline-flex">
+                <Link href="/" className="btn-solid-accent inline-flex w-full sm:w-auto justify-center">
                   Return to Home
                 </Link>
               </div>
@@ -202,9 +202,9 @@ export default function FeedbackPage() {
             <div className="max-w-3xl mx-auto">
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Basic Info */}
-                <div className="card-dark p-8">
+                <div className="card-dark p-5 sm:p-8 min-w-0">
                   <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                    <MessageSquare className="w-5 h-5 text-[#8ECAE6]" />
+                    <MessageSquare className="w-5 h-5 text-[#8ECAE6] flex-shrink-0" />
                     Your Information
                   </h2>
                   <div className="grid md:grid-cols-2 gap-5">
@@ -260,9 +260,9 @@ export default function FeedbackPage() {
                 </div>
 
                 {/* Overall Rating */}
-                <div className="card-dark p-8">
+                <div className="card-dark p-5 sm:p-8 min-w-0">
                   <h2 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                    <Star className="w-5 h-5 text-[#8ECAE6]" />
+                    <Star className="w-5 h-5 text-[#8ECAE6] flex-shrink-0" />
                     Overall Experience
                   </h2>
                   <div className="mb-5">
@@ -280,7 +280,7 @@ export default function FeedbackPage() {
                           className="p-1 transition-transform hover:scale-110"
                         >
                           <Star
-                            className={`w-10 h-10 ${
+                            className={`w-8 h-8 sm:w-10 sm:h-10 ${
                               star <= (hoveredRating || rating)
                                 ? "text-amber-400 fill-amber-400"
                                 : "text-[#4A5568]"
@@ -307,7 +307,7 @@ export default function FeedbackPage() {
                 </div>
 
                 {/* Sessions & Content */}
-                <div className="card-dark p-8">
+                <div className="card-dark p-5 sm:p-8 min-w-0">
                   <h2 className="text-lg font-bold text-white mb-6">Sessions & Content</h2>
                   <div className="space-y-5">
                     <div>
@@ -342,7 +342,7 @@ export default function FeedbackPage() {
                 </div>
 
                 {/* Recommendation */}
-                <div className="card-dark p-8">
+                <div className="card-dark p-5 sm:p-8 min-w-0">
                   <h2 className="text-lg font-bold text-white mb-6">Recommendation</h2>
                   <div className="space-y-5">
                     <div>
@@ -384,7 +384,7 @@ export default function FeedbackPage() {
 
                 {/* Submit Button */}
                 <div className="text-center">
-                  <button type="submit" className="btn-solid-accent inline-flex">
+                  <button type="submit" className="btn-solid-accent inline-flex w-full sm:w-auto justify-center">
                     <Send className="w-5 h-5" />
                     Submit Feedback
                   </button>
@@ -397,7 +397,7 @@ export default function FeedbackPage() {
 
       {/* Footer */}
       <footer className="py-7 bg-[#03060D] hairline-t">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10 flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3.5">
             <Image
               src={conferenceData.logo}
