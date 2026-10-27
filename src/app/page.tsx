@@ -300,8 +300,9 @@ export default function CAMMConference2027() {
               </button>
             </div>
 
-            {/* Timeline */}
-            <div className="relative pl-5 sm:pl-7 timeline-spine ml-1 min-w-0">
+            {/* Timeline: dedicated 12px rail keeps dots on the spine, clear of time text */}
+            <div className="relative min-w-0" data-timeline>
+              <div className="timeline-spine-line" aria-hidden="true" data-timeline-spine />
               {currentSchedule.events.map((event, index) => {
                 const isSelected = selectedBreakout === index;
                 const isBreakout = event.isBreakout;
@@ -309,55 +310,63 @@ export default function CAMMConference2027() {
                 return (
                   <div
                     key={index}
-                    className={`relative grid grid-cols-1 sm:grid-cols-[118px_1fr] gap-1 sm:gap-4 py-4 min-w-0 ${
-                      isSelected ? "schedule-row-selected px-3 my-2" : ""
-                    } ${!isSelected && index < currentSchedule.events.length - 1 ? "hairline-b" : ""}`}
+                    className={`flex items-start gap-3 sm:gap-4 min-w-0 ${
+                      isSelected ? "my-2" : ""
+                    }`}
+                    data-timeline-row
                   >
-                    {/* Timeline Node */}
-                    <div
-                      className={`absolute -left-[5.5px] top-6 w-2.5 h-2.5 rounded-full ${
-                        isBreakout
-                          ? "bg-[#8ECAE6] shadow-[0_0_12px_rgba(142,202,230,0.6)]"
-                          : "bg-[#4A5568]"
-                      }`}
-                    ></div>
-
-                    {/* Time */}
-                    <div
-                      className={`text-base sm:text-lg font-bold tabular-nums ${
-                        isSelected ? "text-[#8ECAE6]" : "text-[#DCEBFA]"
-                      }`}
-                    >
-                      {event.time}
+                    <div className="timeline-rail" data-timeline-rail>
+                      <div
+                        className={`timeline-node ${
+                          isBreakout
+                            ? "bg-[#8ECAE6] shadow-[0_0_12px_rgba(142,202,230,0.6)]"
+                            : "bg-[#4A5568]"
+                        }`}
+                        data-timeline-dot
+                      />
                     </div>
 
-                    {/* Content */}
-                    <div className="min-w-0">
-                      {isBreakout ? (
-                        <button
-                          onClick={() => setSelectedBreakout(index)}
-                          className="text-left w-full min-w-0"
-                        >
-                          <div className="text-lg sm:text-xl font-bold text-white break-words">
-                            {event.title}
-                            {isSelected && (
-                              <span className="ml-2 text-[#8ECAE6]">(Selected →)</span>
-                            )}
-                          </div>
-                          <div
-                            className={`text-sm sm:text-[15px] mt-1 break-words ${
-                              isSelected ? "text-[#B8D8EE]" : "text-[#8FA5BC]"
-                            }`}
+                    <div
+                      className={`flex-1 min-w-0 py-4 grid grid-cols-1 sm:grid-cols-[118px_1fr] gap-1 sm:gap-4 ${
+                        isSelected ? "schedule-row-selected px-3" : ""
+                      } ${!isSelected && index < currentSchedule.events.length - 1 ? "hairline-b" : ""}`}
+                    >
+                      <div
+                        className={`text-base sm:text-lg font-bold tabular-nums ${
+                          isSelected ? "text-[#8ECAE6]" : "text-[#DCEBFA]"
+                        }`}
+                        data-event-time
+                      >
+                        {event.time}
+                      </div>
+
+                      <div className="min-w-0">
+                        {isBreakout ? (
+                          <button
+                            onClick={() => setSelectedBreakout(index)}
+                            className="text-left w-full min-w-0"
                           >
-                            {event.subtitle}
-                          </div>
-                        </button>
-                      ) : (
-                        <>
-                          <div className="text-lg sm:text-xl font-bold text-white break-words">{event.title}</div>
-                          <div className="text-sm sm:text-[15px] text-[#8FA5BC] mt-1 break-words">{event.subtitle}</div>
-                        </>
-                      )}
+                            <div className="text-lg sm:text-xl font-bold text-white break-words">
+                              {event.title}
+                              {isSelected && (
+                                <span className="ml-2 text-[#8ECAE6]">(Selected →)</span>
+                              )}
+                            </div>
+                            <div
+                              className={`text-sm sm:text-[15px] mt-1 break-words ${
+                                isSelected ? "text-[#B8D8EE]" : "text-[#8FA5BC]"
+                              }`}
+                            >
+                              {event.subtitle}
+                            </div>
+                          </button>
+                        ) : (
+                          <>
+                            <div className="text-lg sm:text-xl font-bold text-white break-words">{event.title}</div>
+                            <div className="text-sm sm:text-[15px] text-[#8FA5BC] mt-1 break-words">{event.subtitle}</div>
+                          </>
+                        )}
+                      </div>
                     </div>
                   </div>
                 );

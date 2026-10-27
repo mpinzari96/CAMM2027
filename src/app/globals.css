@@ -180,20 +180,34 @@ img, video, iframe {
   padding: 14px;
 }
 
-/* Timeline */
-.timeline-spine {
-  border-left: 1.5px solid rgba(142, 202, 230, 0.45);
+/* Timeline: spine is a centered 1.5px line in a 12px rail (w-3).
+   Dots are 10px and centered on the same rail so they never overlap time text. */
+.timeline-rail {
+  position: relative;
+  width: 12px;
+  flex-shrink: 0;
+}
+
+.timeline-spine-line {
+  position: absolute;
+  left: 5.25px;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 1.5px;
+  background: rgba(142, 202, 230, 0.45);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .timeline-node {
+  position: absolute;
+  left: 50%;
+  top: 1.4rem;
+  transform: translateX(-50%);
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #8ECAE6;
-  box-shadow: 0 0 12px rgba(142, 202, 230, 0.6);
-  position: absolute;
-  left: -5.5px;
-  top: 24px;
+  z-index: 1;
 }
 
 /* Scrubber Bar */
