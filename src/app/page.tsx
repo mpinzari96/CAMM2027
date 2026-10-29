@@ -7,7 +7,7 @@ import {
   Video,
   Mic2,
   Monitor,
-  Camera,
+  Film,
   Users,
   GraduationCap,
   TrendingUp,
@@ -32,7 +32,7 @@ const iconMap: Record<string, React.ElementType> = {
   Video,
   Mic2,
   Monitor,
-  Camera,
+  Film,
   Users,
   GraduationCap,
   TrendingUp,
@@ -276,6 +276,10 @@ export default function CAMMConference2027() {
               Conference Schedule
             </h2>
 
+            <p className="text-xs sm:text-sm text-[#8FA5BC] mb-4">
+              {conferenceData.trackLegend}
+            </p>
+
             {/* Day Switcher */}
             <div className="flex flex-wrap gap-2 mb-6">
               <button
@@ -327,7 +331,7 @@ export default function CAMMConference2027() {
                     </div>
 
                     <div
-                      className={`flex-1 min-w-0 py-4 grid grid-cols-1 sm:grid-cols-[118px_1fr] gap-1 sm:gap-4 ${
+                      className={`flex-1 min-w-0 py-4 grid grid-cols-1 sm:grid-cols-[minmax(10.75rem,auto)_1fr] gap-1 sm:gap-4 ${
                         isSelected ? "schedule-row-selected px-3" : ""
                       } ${!isSelected && index < currentSchedule.events.length - 1 ? "hairline-b" : ""}`}
                     >
@@ -377,28 +381,33 @@ export default function CAMMConference2027() {
           {/* Right Column - Breakout Track Matrix & Registration */}
           <div className="p-5 sm:p-8 lg:p-12 min-w-0 bg-[#050A14]">
             {/* Breakout Track Matrix Inspector */}
-            {selectedEvent && selectedEvent.isBreakout && selectedEvent.tracks && (
+            {selectedEvent && selectedEvent.isBreakout && selectedEvent.sessions && (
               <div className="matrix-card mb-6 min-w-0">
-                <div className="flex flex-wrap justify-between items-center gap-2 mb-4">
+                <div className="flex flex-wrap justify-between items-center gap-2 mb-2">
                   <div className="text-[10px] sm:text-xs font-extrabold tracking-[0.12em] sm:tracking-[0.16em] text-[#8ECAE6] uppercase break-words">
-                    {selectedEvent.time} Breakout Inspector • 4 Tracks
+                    {selectedEvent.time} • {selectedEvent.title} • {selectedEvent.sessions.length}{" "}
+                    {selectedEvent.sessions.length === 1 ? "Session" : "Sessions"}
                   </div>
-                  <span className="text-xs text-[#94A8BE] hidden sm:inline">Click any time slot on left</span>
+                  <span className="text-xs text-[#94A8BE] hidden sm:inline">Click any lesson on left</span>
                 </div>
+                <p className="text-[11px] text-[#8FA5BC] mb-4">{conferenceData.trackLegend}</p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {Object.entries(selectedEvent.tracks).map(([trackId, trackData]) => {
-                    const track = conferenceData.tracks.find((t) => t.id === trackId);
+                  {selectedEvent.sessions.map((session) => {
+                    const spanCombined =
+                      selectedEvent.sessions.length === 3 &&
+                      "combined" in session &&
+                      session.combined === true;
                     return (
-                      <div key={trackId} className="matrix-cell min-w-0">
+                      <div
+                        key={session.trackId}
+                        className={`matrix-cell min-w-0 ${spanCombined ? "sm:col-span-2" : ""}`}
+                      >
                         <div className="text-[11px] font-extrabold tracking-[0.14em] text-[#8ECAE6] uppercase mb-1">
-                          {track?.shortName || trackId} Track
+                          {session.trackLabel}
                         </div>
-                        <div className="text-sm sm:text-base font-bold text-white mb-1 break-words">
-                          {typeof trackData === "object" ? trackData.title : trackData}
-                        </div>
-                        <div className="text-[13px] text-[#8FA5BC] break-words">
-                          {typeof trackData === "object" ? trackData.location : ""}
+                        <div className="text-sm sm:text-base font-bold text-white break-words">
+                          {session.title}
                         </div>
                       </div>
                     );
