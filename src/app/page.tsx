@@ -38,9 +38,21 @@ const iconMap: Record<string, React.ElementType> = {
   TrendingUp,
 };
 
+const DESKTOP_LAYOUT_QUERY = "(min-width: 1024px)";
+
 function getFirstBreakoutIndex(events: typeof conferenceData.schedule.day1.events): number | null {
   const index = events.findIndex((e) => e.isBreakout);
   return index >= 0 ? index : null;
+}
+
+function isDesktopScheduleLayout() {
+  return window.matchMedia(DESKTOP_LAYOUT_QUERY).matches;
+}
+
+function scrollBehavior(): ScrollBehavior {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ? "auto"
+    : "smooth";
 }
 
 export default function CAMMConference2027() {
@@ -61,6 +73,25 @@ export default function CAMMConference2027() {
     setActiveDay(day);
     const newSchedule = day === 1 ? conferenceData.schedule.day1 : conferenceData.schedule.day2;
     setSelectedBreakout(getFirstBreakoutIndex(newSchedule.events));
+  };
+
+  const handleBreakoutSelect = (index: number) => {
+    setSelectedBreakout(index);
+    if (typeof window === "undefined" || isDesktopScheduleLayout()) return;
+    requestAnimationFrame(() => {
+      document.getElementById("breakout-matrix")?.scrollIntoView({
+        behavior: scrollBehavior(),
+        block: "start",
+      });
+    });
+  };
+
+  const handleBackToSchedule = () => {
+    if (typeof window === "undefined") return;
+    document.getElementById("schedule-timeline")?.scrollIntoView({
+      behavior: scrollBehavior(),
+      block: "start",
+    });
   };
 
   React.useEffect(() => {
@@ -305,7 +336,11 @@ export default function CAMMConference2027() {
             </div>
 
             {/* Timeline: dedicated 12px rail keeps dots on the spine, clear of time text */}
-            <div className="relative min-w-0" data-timeline>
+            <div
+              id="schedule-timeline"
+              className="relative min-w-0 scroll-mt-[88px] sm:scroll-mt-[96px]"
+              data-timeline
+            >
               <div className="timeline-spine-line" aria-hidden="true" data-timeline-spine />
               {currentSchedule.events.map((event, index) => {
                 const isSelected = selectedBreakout === index;
@@ -347,7 +382,8 @@ export default function CAMMConference2027() {
                       <div className="min-w-0">
                         {isBreakout ? (
                           <button
-                            onClick={() => setSelectedBreakout(index)}
+                            type="button"
+                            onClick={() => handleBreakoutSelect(index)}
                             className="text-left w-full min-w-0"
                           >
                             <div className="text-lg sm:text-xl font-bold text-white break-words">
@@ -382,14 +418,24 @@ export default function CAMMConference2027() {
           <div className="p-5 sm:p-8 lg:p-12 min-w-0 bg-[#050A14]">
             {/* Breakout Track Matrix Inspector */}
             {selectedEvent && selectedEvent.isBreakout && selectedEvent.sessions && (
-              <div className="matrix-card mb-6 min-w-0">
+              <div
+                id="breakout-matrix"
+                className="matrix-card mb-6 min-w-0 scroll-mt-[88px] sm:scroll-mt-[96px]"
+              >
                 <div className="flex flex-wrap justify-between items-center gap-2 mb-2">
                   <div className="text-[10px] sm:text-xs font-extrabold tracking-[0.12em] sm:tracking-[0.16em] text-[#8ECAE6] uppercase break-words">
                     {selectedEvent.time} • {selectedEvent.title} • {selectedEvent.sessions.length}{" "}
                     {selectedEvent.sessions.length === 1 ? "Session" : "Sessions"}
                   </div>
-                  <span className="text-xs text-[#94A8BE] hidden sm:inline">Click any lesson on left</span>
+                  <span className="text-xs text-[#94A8BE] hidden lg:inline">Click any lesson on left</span>
                 </div>
+                <button
+                  type="button"
+                  onClick={handleBackToSchedule}
+                  className="lg:hidden mb-3 text-xs font-semibold tracking-[0.08em] uppercase text-[#8ECAE6] hover:text-[#9AD4EE] transition-colors"
+                >
+                  ← Back to schedule
+                </button>
                 <p className="text-[11px] text-[#8FA5BC] mb-4">{conferenceData.trackLegend}</p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
