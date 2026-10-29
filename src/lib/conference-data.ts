@@ -24,6 +24,23 @@ export const conferenceData = {
   registration: {
     url: "https://subsplash.com/bbc-ca/lb/ev/+sqbrrkp/register",
     isOpen: true,
+    urgencyLine: "Price increases to $250 on January 2",
+    tiers: [
+      {
+        id: "early" as const,
+        price: 199,
+        priceLabel: "$199",
+        windowLabel: "October 31 – January 2",
+        detail: "Early registration",
+      },
+      {
+        id: "regular" as const,
+        price: 250,
+        priceLabel: "$250",
+        windowLabel: "January 2 – January 22",
+        detail: "Standard registration",
+      },
+    ],
   },
   logo: "/camm-logo-2027.png",
   banner: "/camm-2027-banner.png",
@@ -343,6 +360,11 @@ export const conferenceData = {
         "We offer four specialized tracks: Video (B) Beginner, Video (A) Advanced, Audio, and Projection. You can attend sessions from any track based on your interests. B = Beginner, A = Advanced.",
     },
     {
+      question: "How much does registration cost?",
+      answer:
+        "Early registration is $199 from October 31 through January 2. The price increases to $250 on January 2, through January 22.",
+    },
+    {
       question: "Are meals included in registration?",
       answer:
         "Yes! Full breakfast, lunch, and dinner are provided both days. We believe fellowship around meals is an important part of the conference experience.",
@@ -378,3 +400,42 @@ export type Track = (typeof conferenceData.tracks)[number];
 export type WhyAttend = (typeof conferenceData.whyAttend)[number];
 export type ScheduleEvent = (typeof conferenceData.schedule.day1.events)[number];
 export type FAQ = (typeof conferenceData.faqs)[number];
+export type PricingTierId = (typeof conferenceData.registration.tiers)[number]["id"];
+
+export type PricingState = {
+  highlightedId: PricingTierId;
+  badge: "Current price" | "Early price";
+  urgencyLine: string;
+};
+
+function localDay(year: number, month: number, day: number) {
+  return new Date(year, month - 1, day).getTime();
+}
+
+export function getPricingState(now = new Date()): PricingState {
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+  const earlyStart = localDay(2026, 10, 31);
+  const cutover = localDay(2027, 1, 2);
+
+  if (today < earlyStart) {
+    return {
+      highlightedId: "early",
+      badge: "Early price",
+      urgencyLine: conferenceData.registration.urgencyLine,
+    };
+  }
+
+  if (today < cutover) {
+    return {
+      highlightedId: "early",
+      badge: "Current price",
+      urgencyLine: conferenceData.registration.urgencyLine,
+    };
+  }
+
+  return {
+    highlightedId: "regular",
+    badge: "Current price",
+    urgencyLine: "Early registration ended January 2. Current price is $250 through January 22.",
+  };
+}

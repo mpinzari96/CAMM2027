@@ -26,7 +26,7 @@ import {
   Volume2,
   Maximize2,
 } from "lucide-react";
-import { conferenceData } from "@/lib/conference-data";
+import { conferenceData, getPricingState } from "@/lib/conference-data";
 
 const iconMap: Record<string, React.ElementType> = {
   Video,
@@ -62,6 +62,7 @@ export default function CAMMConference2027() {
   const [iframeBlocked, setIframeBlocked] = React.useState(false);
   const [iframeLoading, setIframeLoading] = React.useState(true);
   const iframeRef = React.useRef<HTMLIFrameElement>(null);
+  const pricing = getPricingState();
 
   const currentSchedule = activeDay === 1 ? conferenceData.schedule.day1 : conferenceData.schedule.day2;
   
@@ -549,6 +550,57 @@ export default function CAMMConference2027() {
                 <p className="text-[#94A8BE] text-center mt-1 text-sm break-words">
                   {conferenceData.dates.display} • {conferenceData.venue.name},{" "}
                   {conferenceData.venue.city}, {conferenceData.venue.state}
+                </p>
+              </div>
+
+              {/* Pricing Tiers */}
+              <div className="p-4 sm:p-6 hairline-b min-w-0" suppressHydrationWarning>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 min-w-0">
+                  {conferenceData.registration.tiers.map((tier) => {
+                    const isHighlighted = pricing.highlightedId === tier.id;
+                    const isPast =
+                      pricing.highlightedId === "regular" && tier.id === "early";
+                    return (
+                      <div
+                        key={tier.id}
+                        className={`relative min-w-0 rounded-[12px] p-4 sm:p-5 ${
+                          isHighlighted
+                            ? "border border-[rgba(142,202,230,0.55)] bg-[rgba(142,202,230,0.10)] shadow-[0_0_24px_rgba(142,202,230,0.12)]"
+                            : "border border-[rgba(255,255,255,0.08)] bg-[#040811]"
+                        } ${isPast ? "opacity-55" : ""}`}
+                      >
+                        {isHighlighted && (
+                          <span className="inline-block mb-3 px-2.5 py-1 rounded-full text-[10px] font-extrabold tracking-[0.14em] uppercase bg-[#8ECAE6] text-[#040811]">
+                            {pricing.badge}
+                          </span>
+                        )}
+                        {!isHighlighted && !isPast && (
+                          <span className="inline-block mb-3 px-2.5 py-1 rounded-full text-[10px] font-extrabold tracking-[0.14em] uppercase text-[#8FA5BC] border border-[rgba(255,255,255,0.10)]">
+                            {tier.detail}
+                          </span>
+                        )}
+                        {isPast && (
+                          <span className="inline-block mb-3 px-2.5 py-1 rounded-full text-[10px] font-extrabold tracking-[0.14em] uppercase text-[#6E849B] border border-[rgba(255,255,255,0.08)]">
+                            Ended January 2
+                          </span>
+                        )}
+                        <div
+                          className={`text-3xl sm:text-4xl font-extrabold tabular-nums ${
+                            isPast ? "text-[#6E849B] line-through" : "text-white"
+                          }`}
+                        >
+                          {tier.priceLabel}
+                        </div>
+                        <div className="mt-2 text-sm font-semibold text-[#C7D7E8] break-words">
+                          {tier.windowLabel}
+                        </div>
+                        <div className="mt-1 text-xs text-[#8FA5BC]">{tier.detail}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <p className="mt-4 text-center text-sm font-medium text-[#8ECAE6] break-words">
+                  {pricing.urgencyLine}
                 </p>
               </div>
 
