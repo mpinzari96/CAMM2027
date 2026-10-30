@@ -1,0 +1,327 @@
+@import "tailwindcss";
+
+:root {
+  /* Option C Deep Obsidian Color Palette */
+  --background: #040811;
+  --background-secondary: #070E1B;
+  --background-elevated: #0B1526;
+  --background-hover: #101E36;
+  --foreground: #F4F8FC;
+  --foreground-muted: #94A8BE;
+  --foreground-dim: #6E849B;
+  --accent: #8ECAE6;
+  --accent-hover: #9AD4EE;
+  --accent-glow: rgba(142, 202, 230, 0.35);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-accent: rgba(142, 202, 230, 0.28);
+  --card: #070E1C;
+  --card-hover: #0A1322;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-background-elevated: var(--background-elevated);
+  --color-background-hover: var(--background-hover);
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-dim: var(--foreground-dim);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-border: var(--border);
+  --color-border-accent: var(--border-accent);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+img, video, iframe {
+  max-width: 100%;
+}
+
+/* Structural Hairline Borders */
+.hairline-b { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+.hairline-t { border-top: 1px solid rgba(255, 255, 255, 0.08); }
+.hairline-r { border-right: 1px solid rgba(255, 255, 255, 0.08); }
+.hairline-l { border-left: 1px solid rgba(255, 255, 255, 0.08); }
+.hairline-b-0 { border-bottom: none; }
+.hairline-r-0 { border-right: none; }
+
+@media (min-width: 640px) {
+  .sm\:hairline-b { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+  .sm\:hairline-r { border-right: 1px solid rgba(255, 255, 255, 0.08); }
+  .sm\:hairline-b-0 { border-bottom: none; }
+  .sm\:hairline-r-0 { border-right: none; }
+}
+
+@media (min-width: 1024px) {
+  .lg\:hairline-b { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+  .lg\:hairline-r { border-right: 1px solid rgba(255, 255, 255, 0.08); }
+  .lg\:hairline-b-0 { border-bottom: none; }
+}
+
+/* Glassmorphism Header */
+.glassmorphism {
+  background: rgba(4, 8, 17, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Accent Button Styles */
+.btn-solid-accent {
+  background: linear-gradient(180deg, #9AD4EE 0%, #68B5DC 100%);
+  color: #040811;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  box-shadow: 0 0 28px rgba(142, 202, 230, 0.42);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .btn-solid-accent {
+    padding: 14px 28px;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+  }
+}
+
+.btn-solid-accent:hover {
+  box-shadow: 0 0 36px rgba(142, 202, 230, 0.55);
+  transform: translateY(-1px);
+}
+
+.btn-outline-accent {
+  border: 1px solid rgba(142, 202, 230, 0.65);
+  background: rgba(142, 202, 230, 0.08);
+  color: #DFF2FC;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  box-shadow: 0 0 20px rgba(142, 202, 230, 0.18);
+  transition: all 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .btn-outline-accent {
+    padding: 10px 22px;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+  }
+}
+
+.btn-outline-accent:hover {
+  background: rgba(142, 202, 230, 0.15);
+  box-shadow: 0 0 28px rgba(142, 202, 230, 0.28);
+}
+
+/* Track Icon Box */
+.track-icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(142, 202, 230, 0.08);
+  border: 1px solid rgba(142, 202, 230, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8ECAE6;
+  flex-shrink: 0;
+}
+
+/* Matrix Card */
+.matrix-card {
+  background: #070E1C;
+  border: 1px solid rgba(142, 202, 230, 0.28);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+@media (min-width: 640px) {
+  .matrix-card {
+    padding: 24px;
+  }
+}
+
+.matrix-cell {
+  background: #040811;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 10px;
+  padding: 14px;
+}
+
+/* Timeline: spine is a centered 1.5px line in a 12px rail (w-3).
+   Dots are 10px and centered on the same rail so they never overlap time text. */
+.timeline-rail {
+  position: relative;
+  width: 12px;
+  flex-shrink: 0;
+}
+
+.timeline-spine-line {
+  position: absolute;
+  left: 5.25px;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 1.5px;
+  background: rgba(142, 202, 230, 0.45);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.timeline-node {
+  position: absolute;
+  left: 50%;
+  top: 1.4rem;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* Scrubber Bar */
+.scrubber-bar {
+  background: rgba(4, 8, 17, 0.88);
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.scrubber-track {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  position: relative;
+}
+
+.scrubber-fill {
+  height: 100%;
+  background: #8ECAE6;
+  border-radius: 4px;
+  box-shadow: 0 0 12px #8ECAE6;
+}
+
+.scrubber-knob {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2px solid #8ECAE6;
+  position: absolute;
+  top: -4px;
+  box-shadow: 0 0 10px #8ECAE6;
+}
+
+/* Cinema Dock */
+.cinema-dock {
+  background: rgba(6, 12, 24, 0.86);
+  border: 1px solid rgba(142, 202, 230, 0.38);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.65), 0 0 32px rgba(142,202,230,0.16);
+}
+
+/* Play Button Circle */
+.play-circle {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(4, 8, 17, 0.8);
+  border: 2px solid #8ECAE6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 18px #8ECAE6;
+  transition: all 0.3s ease;
+}
+
+.play-circle:hover {
+  box-shadow: 0 0 28px #8ECAE6;
+  transform: scale(1.05);
+}
+
+/* HD Badge */
+.hd-badge {
+  border: 1px solid rgba(142, 202, 230, 0.5);
+  color: #8ECAE6;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Selected Schedule Row */
+.schedule-row-selected {
+  background: rgba(142, 202, 230, 0.08);
+  border: 1px solid rgba(142, 202, 230, 0.35);
+  border-radius: 10px;
+}
+
+/* Card Dark */
+.card-dark {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.card-dark-hover {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  transition: all 0.3s ease;
+}
+
+.card-dark-hover:hover {
+  border-color: rgba(142, 202, 230, 0.35);
+  background-color: var(--card-hover);
+}
+
+/* Tabular Nums for Times */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 12px rgba(142, 202, 230, 0.4); }
+  50% { box-shadow: 0 0 20px rgba(142, 202, 230, 0.7); }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
