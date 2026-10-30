@@ -65,6 +65,13 @@ img, video, iframe {
   max-width: 100%;
 }
 
+.brand-mark {
+  display: block;
+  box-shadow:
+    0 0 0 1px rgba(142, 202, 230, 0.28),
+    0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
 /* Structural Hairline Borders */
 .hairline-b { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
 .hairline-t { border-top: 1px solid rgba(255, 255, 255, 0.08); }

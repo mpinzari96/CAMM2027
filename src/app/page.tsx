@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import Link from "next/link";
+import { BrandLogo } from "@/components/brand-logo";
 import {
   Video,
   Mic2,
@@ -117,15 +117,8 @@ export default function CAMMConference2027() {
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 glassmorphism hairline-b">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10 h-[68px] sm:h-[76px] flex items-center justify-between">
-          <Link href="#home" className="flex items-center gap-3.5">
-            <Image
-              src={conferenceData.logo}
-              alt="CAMM Conference 2027"
-              width={140}
-              height={40}
-              className="h-8 sm:h-10 w-auto max-w-[160px] object-contain"
-              priority
-            />
+          <Link href="#home" className="flex items-center gap-3.5 flex-shrink-0">
+            <BrandLogo variant="nav" priority />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-8">
@@ -195,6 +188,10 @@ export default function CAMMConference2027() {
         }}
       >
         <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-10 pt-10 sm:pt-16 pb-8 sm:pb-11 text-center">
+          <div className="flex justify-center mb-5 sm:mb-7">
+            <BrandLogo variant="hero" priority />
+          </div>
+
           {/* Eyebrow */}
           <div className="text-[11px] sm:text-[13px] font-bold tracking-[0.14em] sm:tracking-[0.24em] text-[#8ECAE6] uppercase mb-3">
             {conferenceData.fullName} • {conferenceData.dates.shortDisplay}
@@ -810,14 +807,8 @@ export default function CAMMConference2027() {
       {/* Footer */}
       <footer className="py-7 bg-[#03060D] hairline-t">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10 flex flex-col lg:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3.5">
-            <Image
-              src={conferenceData.logo}
-              alt="CAMM Conference 2027"
-              width={120}
-              height={34}
-              className="h-8 w-auto object-contain"
-            />
+          <div className="flex items-center gap-3.5 flex-shrink-0">
+            <BrandLogo variant="footer" />
           </div>
 
           <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[11px] font-semibold tracking-[0.12em] uppercase text-[#A9BCD0]">

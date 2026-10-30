@@ -42,9 +42,9 @@ export const metadata: Metadata = {
     siteName: "CAMM Conference 2027",
     images: [
       {
-        url: "/camm-2027-banner.png",
-        width: 3840,
-        height: 2160,
+        url: "/camm-2027-logo-official.png",
+        width: 512,
+        height: 512,
         alt: "CAMM Conference 2027 - Christian American Media Ministry",
       },
     ],
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     title: "CAMM Conference 2027",
     description:
       "January 22-23, 2027 - Two days of inspiration, fellowship, and practical, hands-on training at Bible Baptist Church, Sacramento, CA.",
-    images: ["/camm-2027-banner.png"],
+    images: ["/camm-2027-logo-official.png"],
   },
   robots: {
     index: true,
