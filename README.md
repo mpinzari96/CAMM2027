@@ -65,8 +65,7 @@ src/
 ├── lib/
 │   └── conference-data.ts # Centralized conference data
 public/
-├── camm-2027-logo-official.webp  # Official 2027 logo (primary)
-└── camm-2027-logo-official.png   # Official 2027 logo (PNG fallback)
+└── camm-logo-new.png     # CAMM Conference logo
 ```
 
 ## Configuration

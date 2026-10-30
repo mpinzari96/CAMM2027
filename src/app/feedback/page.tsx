@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { BrandLogo } from "@/components/brand-logo";
 import {
   ArrowLeft,
   Send,
@@ -51,8 +51,15 @@ export default function FeedbackPage() {
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 glassmorphism hairline-b">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10 h-[68px] sm:h-[76px] flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3.5 flex-shrink-0">
-            <BrandLogo variant="nav" priority />
+          <Link href="/" className="flex items-center gap-3.5">
+            <Image
+              src={conferenceData.logo}
+              alt="CAMM Conference 2027"
+              width={140}
+              height={40}
+              className="h-8 sm:h-10 w-auto max-w-[160px] object-contain"
+              priority
+            />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-8">
@@ -391,8 +398,14 @@ export default function FeedbackPage() {
       {/* Footer */}
       <footer className="py-7 bg-[#03060D] hairline-t">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-10 flex flex-col lg:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3.5 flex-shrink-0">
-            <BrandLogo variant="footer" />
+          <div className="flex items-center gap-3.5">
+            <Image
+              src={conferenceData.logo}
+              alt="CAMM Conference 2027"
+              width={120}
+              height={34}
+              className="h-8 w-auto object-contain"
+            />
           </div>
 
           <div className="flex flex-wrap justify-center items-center gap-6">

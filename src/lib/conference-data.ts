@@ -43,8 +43,7 @@ export const conferenceData = {
       },
     ],
   },
-  logo: "/camm-2027-logo-official.png",
-  logoWebp: "/camm-2027-logo-official.webp",
+  logo: "/camm-logo-2027.png",
   banner: "/camm-2027-banner.png",
   quote: "For the glory of God, through the power of media.",
 
