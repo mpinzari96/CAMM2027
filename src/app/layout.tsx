@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "CAMM Conference 2027 | Christian American Media Ministry",
   description:
-    "Join us January 22-23, 2027 at Bible Baptist Church in Sacramento, CA for the CAMM Conference. Equipping creators and advancing the mission through media ministry. Tracks: Video (Beginner), Video (Advanced), Audio, and Projection.",
+    "Join us January 22-23, 2027 at Bible Baptist Church in Sacramento, CA for the CAMM Conference. Two days of inspiration, fellowship, and practical, hands-on training for advancing God's kingdom through media ministry. Lessons: Video (Beginner), Video (Advanced), Audio, and Projection.",
   keywords: [
     "CAMM Conference",
     "Christian media",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "CAMM Conference 2027 | Christian American Media Ministry",
     description:
-      "January 22-23, 2027 - Bible Baptist Church, Sacramento, CA. Equipping creators and advancing the mission through media ministry. 4 Tracks: Video (B), Video (A), Audio & Projection.",
+      "January 22-23, 2027 - Bible Baptist Church, Sacramento, CA. Two days of inspiration, fellowship, and practical, hands-on training for advancing God's kingdom through media ministry. 4 Lessons: Video (B), Video (A), Audio & Projection.",
     type: "website",
     locale: "en_US",
     siteName: "CAMM Conference 2027",

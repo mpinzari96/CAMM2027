@@ -1,7 +1,8 @@
 export const conferenceData = {
   name: "CAMM Conference 2027",
   fullName: "Christian American Media Ministry",
-  tagline: "Equipping creators. Advancing the mission at Bible Baptist Church, Sacramento.",
+  tagline:
+    "Two days of inspiration, fellowship, and practical, hands-on training for advancing God's kingdom through media ministry.",
   year: 2027,
   dates: {
     start: "January 22, 2027",
@@ -54,30 +55,39 @@ export const conferenceData = {
       name: "Video (B)",
       shortName: "Video (B)",
       icon: "Video",
-      description: "Beginner track — video basics, framing, light, and editing.",
+      description:
+        "Beginner Lessons: Understanding Camera Fundamentals, Visual Composition, Lighting Techniques, and Post-Production Editing.",
     },
     {
       id: "video-a",
       name: "Video (A)",
       shortName: "Video (A)",
       icon: "Film",
-      description: "Advanced track — cinematic craft, color science, and live switching.",
+      description:
+        "Advanced Lessons: Mastering Cinematography, Creative Lighting, Camera Techniques, Visual Storytelling, and Post-Production.",
     },
     {
       id: "audio",
       name: "Audio",
       shortName: "Audio",
       icon: "Mic2",
-      description: "Better sound. Greater impact for FOH & broadcast mixes.",
+      description:
+        "Developing Skills in Soundboard Operation, Microphone Techniques, Live Mixing, Stage Audio, and Church Sound Management.",
     },
     {
       id: "projection",
       name: "Projection",
       shortName: "Projection",
       icon: "Monitor",
-      description: "Presentations, ProPresenter, and church media design.",
+      description:
+        "Developing Skills in ProPresenter, Worship Slide Design, Presentation Management, and Visual Communication for Live Services.",
     },
   ],
+
+  experienceSubtitle:
+    "Two days packed with insightful lectures, interactive training, transformative experiences, and fellowship",
+  whyAttendIntro:
+    "CAMM is open to everyone involved in church media ministry, from beginners to seasoned professionals. Whether you're a volunteer, camera operator, audio engineer, or a media director, or simply interested in using media to serve and strengthen your ministry, you'll discover valuable insights, practical knowledge, and meaningful connections.",
 
   whyAttend: [
     {
@@ -85,21 +95,21 @@ export const conferenceData = {
       name: "Fellowship",
       icon: "Users",
       description:
-        "Connect with fellow believers in media ministry, pastors, and Christian content creators from across the nation.",
+        "Connect with fellow believers, pastors, and church media teams from across the nation, united by a shared passion for advancing the Gospel through media.",
     },
     {
       id: "learn",
       name: "Learn",
       icon: "GraduationCap",
       description:
-        "Gain biblical insights and practical skills for effective media ministry from experienced speakers and practitioners.",
+        "Gain practical knowledge and hands-on skills from experienced instructors and ministry leaders who bring years of real-world expertise to help you grow, improve, and serve more effectively in your media ministry.",
     },
     {
       id: "grow",
       name: "Grow",
       icon: "TrendingUp",
       description:
-        "Strengthen your media ministry with hands-on workshops and biblical foundations for effective outreach.",
+        "Equip and elevate your media ministry through practical, hands-on training grounded in biblical principles and focused on impactful Gospel outreach.",
     },
   ],
 
@@ -107,9 +117,9 @@ export const conferenceData = {
     day1: {
       date: "January 22, 2027",
       dayLabel: "Day 1",
-      shortDate: "FRI JAN 22",
+      shortDate: "January 22",
       dayOfWeek: "Friday",
-      theme: "Избрание Для Служения и Верность в Служении",
+      theme: "An Introduction to Media Production in the Church Setting",
       events: [
         {
           time: "8:00 AM – 9:00 AM",
@@ -133,7 +143,7 @@ export const conferenceData = {
         {
           time: "10:30 AM – 11:20 AM",
           title: "Lesson 1",
-          subtitle: "4 parallel tracks",
+          subtitle: "4 parallel lessons",
           type: "lesson",
           isBreakout: true,
           sessions: [
@@ -153,7 +163,7 @@ export const conferenceData = {
         {
           time: "11:30 AM – 12:20 PM",
           title: "Lesson 2",
-          subtitle: "4 parallel tracks",
+          subtitle: "4 parallel lessons",
           type: "lesson",
           isBreakout: true,
           sessions: [
@@ -173,7 +183,7 @@ export const conferenceData = {
         {
           time: "12:30 PM – 1:20 PM",
           title: "Lesson 3",
-          subtitle: "4 parallel tracks",
+          subtitle: "4 parallel lessons",
           type: "lesson",
           isBreakout: true,
           sessions: [
@@ -192,7 +202,7 @@ export const conferenceData = {
         {
           time: "2:30 PM – 3:20 PM",
           title: "Lesson 4",
-          subtitle: "4 parallel tracks",
+          subtitle: "4 parallel lessons",
           type: "lesson",
           isBreakout: true,
           sessions: [
@@ -226,9 +236,9 @@ export const conferenceData = {
     day2: {
       date: "January 23, 2027",
       dayLabel: "Day 2",
-      shortDate: "SAT JAN 23",
+      shortDate: "January 23",
       dayOfWeek: "Saturday",
-      theme: "Effective Communication: Working with Pastors, Performers, and Church Members",
+      theme: "Excel at Live Church Service Streaming",
       events: [
         {
           time: "8:00 AM – 9:00 AM",
@@ -252,7 +262,7 @@ export const conferenceData = {
         {
           time: "10:30 AM – 11:20 AM",
           title: "Lesson 1",
-          subtitle: "4 parallel tracks",
+          subtitle: "4 parallel lessons",
           type: "lesson",
           isBreakout: true,
           sessions: [
@@ -272,7 +282,7 @@ export const conferenceData = {
         {
           time: "11:30 AM – 12:20 PM",
           title: "Lesson 2",
-          subtitle: "4 parallel tracks",
+          subtitle: "4 parallel lessons",
           type: "lesson",
           isBreakout: true,
           sessions: [
@@ -315,7 +325,7 @@ export const conferenceData = {
         {
           time: "2:30 PM – 3:20 PM",
           title: "Lesson 4",
-          subtitle: "4 parallel tracks",
+          subtitle: "4 parallel lessons",
           type: "lesson",
           isBreakout: true,
           sessions: [
@@ -355,9 +365,9 @@ export const conferenceData = {
         "CAMM is designed for anyone involved in church media ministry — from beginners to experienced professionals. Whether you're a volunteer, pastor, media director, or just curious about using media for ministry, you'll find valuable content and connections here.",
     },
     {
-      question: "What are the different tracks?",
+      question: "What is the total number of lessons offered?",
       answer:
-        "We offer four specialized tracks: Video (B) Beginner, Video (A) Advanced, Audio, and Projection. You can attend sessions from any track based on your interests. B = Beginner, A = Advanced.",
+        "Each day features five lessons and a two-hour hands-on workshop, providing a total of 10 lessons and 4 hours of workshop instruction over the two-day conference.",
     },
     {
       question: "How much does registration cost?",
@@ -370,11 +380,6 @@ export const conferenceData = {
         "Yes! Full breakfast, lunch, and dinner are provided both days. We believe fellowship around meals is an important part of the conference experience.",
     },
     {
-      question: "Is there group registration available?",
-      answer:
-        "Yes! We offer discounted rates for groups of 5 or more from the same church or organization. Contact us directly for group pricing and registration assistance.",
-    },
-    {
       question: "What if I have trouble with the registration form?",
       answer:
         "If you're using an ad-blocker or have strict browser privacy settings, the embedded registration form may not load. You can click the direct registration link to open Subsplash in a new tab, or contact us at (916) 822-1472 for assistance.",
@@ -382,14 +387,14 @@ export const conferenceData = {
     {
       question: "What should I bring to the conference?",
       answer:
-        "Bring a notebook, your camera/equipment if you'd like hands-on practice, a laptop for the projection track, and an open heart ready to learn and grow in your media ministry journey.",
+        "Be sure to bring a notebook, your camera or equipment for hands-on training, and a laptop for projection-related lessons. Most importantly, come with a willingness to learn, grow, and strengthen your media ministry skills.",
     },
   ],
 
   navigation: [
     { label: "Home", href: "#home" },
     { label: "About", href: "#about" },
-    { label: "Tracks", href: "#tracks" },
+    { label: "Lessons", href: "#lessons" },
     { label: "Schedule", href: "#schedule" },
     { label: "Venue", href: "#venue" },
     { label: "FAQ", href: "#faq" },

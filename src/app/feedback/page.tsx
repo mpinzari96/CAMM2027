@@ -312,7 +312,7 @@ export default function FeedbackPage() {
                   <div className="space-y-5">
                     <div>
                       <label htmlFor="favoriteSession" className="block text-sm font-medium text-[#94A8BE] mb-2">
-                        What was your favorite session or track?
+                        What was your favorite session or lesson?
                       </label>
                       <textarea
                         id="favoriteSession"

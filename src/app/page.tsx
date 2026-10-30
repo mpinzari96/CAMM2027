@@ -202,7 +202,8 @@ export default function CAMMConference2027() {
 
           {/* Headline */}
           <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] font-light tracking-[0.04em] sm:tracking-[0.08em] uppercase text-white mb-3 leading-tight break-words">
-            Welcome to the <strong className="font-extrabold">CAMM Conference</strong>
+            Welcome to the{" "}
+            <strong className="font-extrabold whitespace-nowrap">Conference</strong>
           </h1>
 
           {/* Subtitle */}
@@ -228,7 +229,7 @@ export default function CAMMConference2027() {
                 Watch Welcome Video • 2:18
               </div>
               <div className="text-base sm:text-lg lg:text-xl font-bold text-white mb-1.5 break-words">
-                Inside CAMM 2027: 4 Tracks, Live Stage Labs & Fellowship
+                Inside CAMM 2027: 4 Lessons, Live Stage Labs & Fellowship
               </div>
               <div className="text-xs sm:text-sm text-[#94A8BE] hidden sm:block">
                 Click to play full-screen with audio or scrub the preview timeline below.
@@ -265,8 +266,8 @@ export default function CAMMConference2027() {
         </div>
       </section>
 
-      {/* 4-Column Track Strip */}
-      <section id="tracks" className="bg-[#050A14] hairline-b">
+      {/* 4-Column Lesson Strip */}
+      <section id="lessons" className="bg-[#050A14] hairline-b">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {conferenceData.tracks.map((track, index) => {
             const Icon = iconMap[track.icon] || Video;
@@ -302,38 +303,60 @@ export default function CAMMConference2027() {
           {/* Left Column - Schedule Timeline */}
           <div className="p-5 sm:p-8 lg:p-12 min-w-0 lg:hairline-r">
             <div className="text-[10px] sm:text-xs font-bold tracking-[0.16em] sm:tracking-[0.2em] text-[#8ECAE6] uppercase mb-2">
-              Left-Aligned Tabular Timeline
+              Lessons
             </div>
-            <h2 className="text-2xl sm:text-[28px] font-extrabold tracking-[0.04em] sm:tracking-[0.06em] uppercase text-white mb-6 break-words">
+            <h2 className="text-2xl sm:text-[28px] font-extrabold tracking-[0.04em] sm:tracking-[0.06em] uppercase text-white mb-3 break-words">
               Conference Schedule
             </h2>
+            <p className="text-sm sm:text-base text-[#94A8BE] mb-4 leading-relaxed">
+              {conferenceData.experienceSubtitle}
+            </p>
 
             <p className="text-xs sm:text-sm text-[#8FA5BC] mb-4">
               {conferenceData.trackLegend}
             </p>
 
             {/* Day Switcher */}
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="flex flex-col lg:flex-row flex-wrap gap-2 mb-4 min-w-0">
               <button
                 onClick={() => handleDayChange(1)}
-                className={`px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-extrabold tracking-[0.08em] sm:tracking-[0.12em] uppercase transition-all ${
+                className={`w-full lg:flex-1 lg:max-w-[calc(50%-0.25rem)] min-w-0 px-4 py-2.5 sm:px-5 rounded-[12px] text-left transition-all ${
                   activeDay === 1
                     ? "bg-[#8ECAE6] text-[#040811]"
                     : "border border-[rgba(255,255,255,0.14)] text-[#9FB2C7] hover:border-[#8ECAE6]/50"
                 }`}
               >
-                Day 1 • {conferenceData.schedule.day1.shortDate}
+                <span className="block text-xs sm:text-[13px] font-extrabold tracking-[0.08em] sm:tracking-[0.12em] uppercase">
+                  Day 1 ({conferenceData.schedule.day1.shortDate})
+                </span>
+                <span className="block mt-1 text-[11px] sm:text-xs font-semibold leading-snug tracking-normal normal-case break-words">
+                  {conferenceData.schedule.day1.theme}
+                </span>
               </button>
               <button
                 onClick={() => handleDayChange(2)}
-                className={`px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-bold tracking-[0.08em] sm:tracking-[0.12em] uppercase transition-all ${
+                className={`w-full lg:flex-1 lg:max-w-[calc(50%-0.25rem)] min-w-0 px-4 py-2.5 sm:px-5 rounded-[12px] text-left transition-all ${
                   activeDay === 2
                     ? "bg-[#8ECAE6] text-[#040811]"
                     : "border border-[rgba(255,255,255,0.14)] text-[#9FB2C7] hover:border-[#8ECAE6]/50"
                 }`}
               >
-                Day 2 • {conferenceData.schedule.day2.shortDate}
+                <span className="block text-xs sm:text-[13px] font-extrabold tracking-[0.08em] sm:tracking-[0.12em] uppercase">
+                  Day 2 ({conferenceData.schedule.day2.shortDate})
+                </span>
+                <span className="block mt-1 text-[11px] sm:text-xs font-semibold leading-snug tracking-normal normal-case break-words">
+                  {conferenceData.schedule.day2.theme}
+                </span>
               </button>
+            </div>
+
+            <div className="mb-6 min-w-0">
+              <h3 className="text-sm sm:text-base font-extrabold text-white break-words">
+                {currentSchedule.dayLabel} ({currentSchedule.shortDate})
+              </h3>
+              <p className="text-sm text-[#8ECAE6] mt-1 break-words leading-snug">
+                {currentSchedule.theme}
+              </p>
             </div>
 
             {/* Timeline: dedicated 12px rail keeps dots on the spine, clear of time text */}
@@ -502,9 +525,11 @@ export default function CAMMConference2027() {
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-4">
               Why Attend CAMM?
             </h2>
-            <p className="text-base sm:text-lg text-[#94A8BE] max-w-2xl mx-auto">
-              Two days of inspiration, fellowship, and practical training for advancing God&apos;s
-              kingdom through media ministry.
+            <p className="text-base sm:text-lg text-[#94A8BE] max-w-2xl mx-auto mb-5">
+              {conferenceData.experienceSubtitle}
+            </p>
+            <p className="text-[15px] sm:text-base text-[#94A8BE] max-w-3xl mx-auto leading-relaxed">
+              {conferenceData.whyAttendIntro}
             </p>
           </div>
 
@@ -548,7 +573,8 @@ export default function CAMMConference2027() {
                   Complete Your Registration
                 </h3>
                 <p className="text-[#94A8BE] text-center mt-1 text-sm break-words">
-                  {conferenceData.dates.display} • {conferenceData.venue.name},{" "}
+                  {conferenceData.dates.display} • {conferenceData.venue.name},
+                  <br />
                   {conferenceData.venue.city}, {conferenceData.venue.state}
                 </p>
               </div>
