@@ -86,8 +86,6 @@ export const conferenceData = {
 
   experienceSubtitle:
     "Two days packed with insightful lectures, interactive training, transformative experiences, and fellowship",
-  whyAttendIntro:
-    "CAMM is open to everyone involved in church media ministry, from beginners to seasoned professionals. Whether you're a volunteer, camera operator, audio engineer, or a media director, or simply interested in using media to serve and strengthen your ministry, you'll discover valuable insights, practical knowledge, and meaningful connections.",
 
   whyAttend: [
     {

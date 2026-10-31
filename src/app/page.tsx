@@ -200,10 +200,13 @@ export default function CAMMConference2027() {
             {conferenceData.fullName} • {conferenceData.dates.shortDisplay}
           </div>
 
-          {/* Headline */}
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] font-light tracking-[0.04em] sm:tracking-[0.08em] uppercase text-white mb-3 leading-tight break-words">
-            Welcome to the{" "}
-            <strong className="font-extrabold whitespace-nowrap">Conference</strong>
+          {/* Headline: mobile is exactly WELCOME TO THE / CAMM CONFERENCE */}
+          <h1 className="text-[clamp(1.2rem,5.6vw,1.5rem)] sm:text-4xl md:text-5xl lg:text-[54px] font-light tracking-[0.03em] sm:tracking-[0.08em] uppercase text-white mb-3 leading-tight">
+            <span className="block sm:inline">Welcome to the</span>
+            <span className="hidden sm:inline"> </span>
+            <strong className="font-extrabold whitespace-nowrap block sm:inline">
+              CAMM Conference
+            </strong>
           </h1>
 
           {/* Subtitle */}
@@ -525,11 +528,8 @@ export default function CAMMConference2027() {
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-4">
               Why Attend CAMM?
             </h2>
-            <p className="text-base sm:text-lg text-[#94A8BE] max-w-2xl mx-auto mb-5">
+            <p className="text-base sm:text-lg text-[#94A8BE] max-w-2xl mx-auto">
               {conferenceData.experienceSubtitle}
-            </p>
-            <p className="text-[15px] sm:text-base text-[#94A8BE] max-w-3xl mx-auto leading-relaxed">
-              {conferenceData.whyAttendIntro}
             </p>
           </div>
 
