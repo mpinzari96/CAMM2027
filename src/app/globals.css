@@ -328,6 +328,52 @@ img, video, iframe {
   border-radius: 10px;
 }
 
+/* Hero section: same overlay, cameras in blue-lit church behind the video */
+.conference-hero {
+  background-image:
+    linear-gradient(180deg, rgba(4, 8, 17, 0.42) 0%, rgba(4, 8, 17, 0.78) 70%, #040811 100%),
+    url("/camm-hero-camera-background.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* Phone: crop sides; keep the two tripod cameras in frame */
+  background-position: 48% 40%;
+}
+
+@media (min-width: 768px) {
+  .conference-hero {
+    background-position: 50% 38%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .conference-hero {
+    background-position: 50% 36%;
+  }
+}
+
+/* Registration is open card: same overlay, church media production photo */
+.registration-open-card {
+  background-image:
+    linear-gradient(180deg, rgba(4, 8, 17, 0.4) 0%, #040811 95%),
+    url("/camm-registration-media.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* Phone: sides crop; keep sanctuary + cameras in the visible band */
+  background-position: center 28%;
+}
+
+@media (min-width: 768px) {
+  .registration-open-card {
+    background-position: center 22%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .registration-open-card {
+    background-position: center 18%;
+  }
+}
+
 /* Card Dark */
 .card-dark {
   background-color: var(--card);
