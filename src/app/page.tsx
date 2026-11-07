@@ -185,13 +185,7 @@ export default function CAMMConference2027() {
       </header>
 
       {/* Hero Section with Cinema Video Dock */}
-      <section
-        id="home"
-        className="relative pt-[68px] sm:pt-[76px]"
-        style={{
-          background: `linear-gradient(180deg, rgba(4,8,17,0.42) 0%, rgba(4,8,17,0.78) 70%, #040811 100%), url('/mockup-assets/hero-bg.jpg') center/cover no-repeat`,
-        }}
-      >
+      <section id="home" className="conference-hero relative pt-[68px] sm:pt-[76px]">
         <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-10 pt-10 sm:pt-16 pb-8 sm:pb-11 text-center">
           {/* Eyebrow */}
           <div className="text-[11px] sm:text-[13px] font-bold tracking-[0.14em] sm:tracking-[0.24em] text-[#8ECAE6] uppercase mb-3">
