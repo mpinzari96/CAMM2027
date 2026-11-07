@@ -48,7 +48,6 @@ export const conferenceData = {
   welcomeVideo: {
     src: "https://media.newlegacyfilms.studio/website%20video.mp4",
     poster: "/welcome-video-poster.jpg",
-    title: "Inside CAMM 2027: 4 Lessons, Live Stage Labs & Fellowship",
     width: 3840,
     height: 2160,
   },

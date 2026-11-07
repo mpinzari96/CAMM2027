@@ -29,7 +29,7 @@ function prefersReducedMotion() {
 }
 
 export function ConferenceHeroVideo() {
-  const { src, poster, title } = conferenceData.welcomeVideo;
+  const { src, poster } = conferenceData.welcomeVideo;
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const stageRef = React.useRef<HTMLDivElement>(null);
   const trackRef = React.useRef<HTMLDivElement>(null);
@@ -262,7 +262,7 @@ export function ConferenceHeroVideo() {
             controls={false}
             disablePictureInPicture
             className="hero-video"
-            aria-label={title}
+            aria-label="CAMM Conference 2027 welcome video"
             onClick={togglePlay}
           />
 
@@ -310,23 +310,7 @@ export function ConferenceHeroVideo() {
           )}
         </div>
 
-        <div className="mt-4 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 min-w-0">
-          <div className="flex-1 text-center sm:text-left min-w-0">
-            <div className="text-[10px] sm:text-xs font-extrabold tracking-[0.12em] sm:tracking-[0.16em] text-[#8ECAE6] uppercase mb-1.5">
-              Watch Welcome Video
-              {duration > 0 ? ` • ${formatTime(duration)}` : ""}
-            </div>
-            <div className="text-base sm:text-lg lg:text-xl font-bold text-white break-words">
-              {title}
-            </div>
-            <div className="text-xs sm:text-sm text-[#94A8BE] mt-1">
-              {isMuted && isPlaying
-                ? "Playing muted — use sound to hear audio."
-                : needsTap
-                  ? "Tap play to start the welcome video."
-                  : "Pause, seek, or toggle sound with the controls below."}
-            </div>
-          </div>
+        <div className="mt-4 flex justify-center min-w-0">
           <button
             type="button"
             onClick={isMuted ? playWithSound : toggleMute}
