@@ -328,6 +328,29 @@ img, video, iframe {
   border-radius: 10px;
 }
 
+/* Registration is open card: same overlay, church media production photo */
+.registration-open-card {
+  background-image:
+    linear-gradient(180deg, rgba(4, 8, 17, 0.4) 0%, #040811 95%),
+    url("/camm-registration-media.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* Phone: sides crop; keep sanctuary + cameras in the visible band */
+  background-position: center 28%;
+}
+
+@media (min-width: 768px) {
+  .registration-open-card {
+    background-position: center 22%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .registration-open-card {
+    background-position: center 18%;
+  }
+}
+
 /* Card Dark */
 .card-dark {
   background-color: var(--card);

@@ -436,13 +436,8 @@ export default function CAMMConference2027() {
               </div>
             )}
 
-            {/* Registration Card with Crowd Background */}
-            <div
-              className="rounded-[14px] border border-[rgba(255,255,255,0.09)] p-5 sm:p-8 bg-cover bg-top min-w-0"
-              style={{
-                background: `linear-gradient(180deg, rgba(4,8,17,0.4) 0%, #040811 95%), url('/mockup-assets/crowd-top.jpg') top/cover no-repeat`,
-              }}
-            >
+            {/* Registration Card with church media production background */}
+            <div className="registration-open-card rounded-[14px] border border-[rgba(255,255,255,0.09)] p-5 sm:p-8 min-w-0">
               <div className="text-[11px] font-bold tracking-[0.18em] text-[#8ECAE6] uppercase mb-1.5">
                 Get Involved
               </div>
