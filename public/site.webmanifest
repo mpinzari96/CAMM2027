@@ -1,0 +1,21 @@
+{
+  "name": "CAMM Conference 2027",
+  "short_name": "CAMM 2027",
+  "description": "Christian American Media Ministry Conference — January 22-23, 2027 at Bible Baptist Church, Sacramento, CA.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#040811",
+  "theme_color": "#040811",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
