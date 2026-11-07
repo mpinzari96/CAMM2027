@@ -12,7 +12,6 @@ import {
   GraduationCap,
   TrendingUp,
   MapPin,
-  Play,
   ArrowRight,
   Menu,
   X,
@@ -23,10 +22,9 @@ import {
   CheckCircle,
   ExternalLink,
   AlertCircle,
-  Volume2,
-  Maximize2,
 } from "lucide-react";
 import { conferenceData, getPricingState } from "@/lib/conference-data";
+import { ConferenceHeroVideo } from "@/components/conference-video";
 
 const iconMap: Record<string, React.ElementType> = {
   Video,
@@ -213,60 +211,9 @@ export default function CAMMConference2027() {
           <p className="text-base sm:text-lg lg:text-[19px] text-[#C7D7E8] mb-6 sm:mb-10 max-w-2xl mx-auto px-2">
             {conferenceData.tagline}
           </p>
-
-          {/* Cinema Video Dock */}
-          <div className="cinema-dock max-w-[860px] mx-auto p-4 sm:p-5 flex flex-col md:flex-row items-center gap-4 sm:gap-6">
-            {/* Thumbnail */}
-            <div
-              className="w-full md:w-[190px] h-[100px] sm:h-[106px] rounded-[10px] border border-[rgba(142,202,230,0.45)] flex-shrink-0 flex items-center justify-center bg-cover bg-center"
-              style={{ backgroundImage: `url('/mockup-assets/camera-monitor.jpg')` }}
-            >
-              <button className="play-circle">
-                <Play className="w-[18px] h-[18px] text-white fill-white ml-0.5" />
-              </button>
-            </div>
-
-            {/* Video Info */}
-            <div className="flex-1 text-center md:text-left min-w-0">
-              <div className="text-[10px] sm:text-xs font-extrabold tracking-[0.12em] sm:tracking-[0.16em] text-[#8ECAE6] uppercase mb-1.5">
-                Watch Welcome Video • 2:18
-              </div>
-              <div className="text-base sm:text-lg lg:text-xl font-bold text-white mb-1.5 break-words">
-                Inside CAMM 2027: 4 Lessons, Live Stage Labs & Fellowship
-              </div>
-              <div className="text-xs sm:text-sm text-[#94A8BE] hidden sm:block">
-                Click to play full-screen with audio or scrub the preview timeline below.
-              </div>
-            </div>
-
-            {/* Play Button */}
-            <button className="btn-solid-accent w-full md:w-auto justify-center flex-shrink-0">
-              Play Intro <Play className="w-4 h-4 fill-current" />
-            </button>
-          </div>
         </div>
 
-        {/* Scrubber Bar */}
-        <div className="scrubber-bar px-4 sm:px-6 lg:px-10 py-3 flex items-center gap-2.5 sm:gap-5">
-          <button className="text-[#8ECAE6] hover:text-white transition-colors flex-shrink-0">
-            <Play className="w-4 h-4 fill-current" />
-          </button>
-          <div className="scrubber-track min-w-0 flex-1">
-            <div className="scrubber-fill" style={{ width: "0%" }}></div>
-            <div className="scrubber-knob" style={{ left: "0%" }}></div>
-          </div>
-          <div className="flex items-center gap-2 sm:gap-4 text-[10px] sm:text-xs font-semibold tracking-[0.08em] text-[#B8CBE0] tabular-nums flex-shrink-0">
-            <span>0:00 / 2:18</span>
-            <button className="text-[#8ECAE6] hover:text-white transition-colors hidden sm:block">
-              <Volume2 className="w-4 h-4" />
-            </button>
-            <span className="hd-badge">HD</span>
-            <button className="flex items-center gap-1 text-[#B8CBE0] hover:text-white transition-colors">
-              <Maximize2 className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">FULLSCREEN</span>
-            </button>
-          </div>
-        </div>
+        <ConferenceHeroVideo />
       </section>
 
       {/* 4-Column Lesson Strip */}
