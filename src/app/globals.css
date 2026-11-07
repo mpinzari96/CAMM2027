@@ -337,6 +337,7 @@ img, video, iframe {
   background-size: cover;
   /* Phone: sides crop; keep sanctuary + cameras in the visible band */
   background-position: center 28%;
+  background-clip: padding-box;
 }
 
 @media (min-width: 768px) {
